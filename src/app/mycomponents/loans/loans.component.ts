@@ -352,4 +352,9 @@ export class LoansComponent implements OnInit {
 
   }
 
+
+  displayDialog(){
+    
+  }
+
 }

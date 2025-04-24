@@ -297,16 +297,17 @@ export class AccountsComponent implements OnInit {
     this.display = true;
   }
   
-
   getColor(percentage: any) {
     if (percentage === "Active") {
-      return '#1e9674'; // Darker green
+      return '#5cb89e'; // Gentle green
     } else if (percentage === "Frozen") {
-      return 'rgb(204, 130, 40)'; // Darker orange
+      return '#dda45a'; // Warm orange
     } else {
-      return '#cc3f3f'; // Darker red
+      return '#d46b6b'; // Muted red
     }
   }
+  
+  
   
 
 
