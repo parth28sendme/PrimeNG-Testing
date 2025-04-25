@@ -357,4 +357,21 @@ export class LoansComponent implements OnInit {
     
   }
 
+  getColor(status: any) {
+    switch (status) {
+      case "Approved":
+        return '#5cb89e'; // Gentle green
+      case "Pending":
+        return '#dda45a'; // Warm amber
+      case "Closed":
+        return '#a1a1a1'; // Soft neutral gray
+      case "Rejected":
+        return '#d46b6b'; // Muted red
+      default:
+        return '#cccccc'; // Fallback gray
+    }
+  }
+  
+  
+
 }
