@@ -26,15 +26,29 @@
     </div>
   </div>
 
+  <div class="row col-12 mt-5">
 
-  <div class="row mt-5 mb-1">
+    <div *ngFor="let card of stats" class="col-3 ">
+      <div class="p-card ">
+      <div class="p-card-body box-style">
+       <h5 style="color: #001845; text-align: center;">Loans {{card.name}} : <span style="font-weight: 600;">{{card.value}}</span></h5>
+    </div>
+  </div>
+   </div>
+
+  </div>
+      
+ 
+
+
+
+
+  <div class="row mt-4 mb-1">
     <div class="col-12 d-flex justify-content-start gap-2">
-    
-      <button class="excel-btn"  style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
+      <button class="excel-btn" (click)='exportToExcel()'  style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
         <i class="pi pi-file-excel"></i>
         <span>EXCEL</span>
       </button>
-
     </div>
   </div>
 
@@ -47,8 +61,7 @@
     <p-table [value]="loanData" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
     <ng-template pTemplate="header" styleClass="p-datatable-striped" class="p-table-striped">
       <tr>
-        <th></th>
-        <th></th>
+   
         <th>Loan ID</th>
         <th>Loan Type</th>
         <th>Amount</th>
@@ -62,16 +75,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
       <tr class="ml-5">
-        <th>
-          <button (click)="displayDialog()" class="btn btn-primary ml-5" style="margin-left: 20%;">
-            <i class="pi pi-pencil" style="font-size: 0.8rem"></i>
-          </button>
-        </th>
-        <th>
-          <button class="btn btn-danger">
-            <i class="pi pi-trash" style="font-size: 0.8rem"></i>
-          </button>
-        </th>
+     
         <td>{{ rowData.loanId }}</td>
         <td>{{ rowData.loanType }}</td>
         <td>₹{{ rowData.amount | number }}</td>
@@ -90,9 +94,7 @@
         </td>
 
         <td>
-          <i class="pi" 
-             [ngClass]="rowData.processed ? 'pi-check-circle text-success' : 'pi-times-circle text-danger'" 
-             style="font-size: 1.2rem"></i>
+          <p-inputSwitch [(ngModel)]="rowData.processed"></p-inputSwitch>
         </td>
         
       </tr>
@@ -101,3 +103,49 @@
     </div>
     </div>
   
+
+
+    <p-dialog 
+  header="Add New Account" 
+  [(visible)]="display" 
+  [modal]="true" 
+  [style]="{width: '67vw'}  " 
+  [contentStyle]="{'overflow': 'unset'}" 
+  [breakpoints]="{'960px': '95vw'}"
+  [closable]="true"
+>
+
+<div class="d-flex col-12 flex-wrap justify-content-start gap-5 mt-3 px-3">
+
+  <div 
+  *ngFor="let item of dialogFields" 
+  class="d-flex flex-column mb-3 " 
+  style="min-width: 200px; font-family: 'Poppins', sans-serif;"
+  >
+  <label 
+    class="mb-1 fw-semibold text-secondary" 
+    [for]="item.name"
+    style="font-size: 14px;"
+  >
+    {{ item.label }}
+  </label>
+  <input 
+    [id]="item.name" 
+    type="text" 
+    pInputText 
+    [(ngModel)]="account[item.name]" 
+    [name]="item.name" 
+    class="p-inputtext-sm custom-input"
+    style="padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px;"
+  />
+</div>
+
+</div>
+
+
+  <div class="col-12 d-flex justify-content-center gap-3 mt-5">
+    <button pButton type="button" label="Save" class="btn btn-light-success p-mr-2" (click)="saveAccount()"></button>
+    <button pButton type="button" label="Cancel" class="p-button-danger" (click)="display = false"></button>
+  </div>
+</p-dialog>
+

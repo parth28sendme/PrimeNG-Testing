@@ -50,6 +50,7 @@ body {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   pointer-events: none;
+  
 }
 
 
@@ -86,6 +87,7 @@ body {
     padding-top: 0rem !important;
     padding-bottom: 0rem !important; /* or 0 to remove completely */
   }
+  
   
   ::ng-deep .p-card-body {
     padding-top: 0rem !important;
