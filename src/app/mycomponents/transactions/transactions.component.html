@@ -7,13 +7,9 @@
 <div class="row">
     <div class="col-12 ">
         <div class="filters-container">      
-            <p-dropdown  [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City"
+            <p-dropdown  [options]="branches" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a Branch"
               [filter]="true">
             </p-dropdown>
-    
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities"
-            display="chip" [filter]="true">
-          </p-multiSelect>
   
           <button class="btn btn-success btn-light-success waves-effect waves-light">
             <i class="pi pi-search" style="font-size: 0.8rem"></i>
