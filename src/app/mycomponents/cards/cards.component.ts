@@ -23,7 +23,10 @@ export class CardsComponent implements OnInit {
         pin: '1234',
         cardType: 'Debit',
         cardLevel: 'Gold',
-        cvv: '123'
+        cvv: '123',
+        cardStatus: 'Active',
+        dailyLimit: 50000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST002',
@@ -35,7 +38,10 @@ export class CardsComponent implements OnInit {
         pin: '5678',
         cardType: 'Credit',
         cardLevel: 'Platinum',
-        cvv: '456'
+        cvv: '456',
+        cardStatus: 'Active',
+        dailyLimit: 100000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST003',
@@ -47,7 +53,10 @@ export class CardsComponent implements OnInit {
         pin: '6789',
         cardType: 'Debit',
         cardLevel: 'Silver',
-        cvv: '789'
+        cvv: '789',
+        cardStatus: 'Inactive',
+        dailyLimit: 30000,
+        internationalUsageEnabled: false
       },
       {
         customerId: 'CUST004',
@@ -59,7 +68,10 @@ export class CardsComponent implements OnInit {
         pin: '3456',
         cardType: 'Debit',
         cardLevel: 'Platinum',
-        cvv: '321'
+        cvv: '321',
+        cardStatus: 'Active',
+        dailyLimit: 70000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST005',
@@ -71,7 +83,10 @@ export class CardsComponent implements OnInit {
         pin: '9012',
         cardType: 'Credit',
         cardLevel: 'Gold',
-        cvv: '654'
+        cvv: '654',
+        cardStatus: 'Active',
+        dailyLimit: 60000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST006',
@@ -83,7 +98,10 @@ export class CardsComponent implements OnInit {
         pin: '2345',
         cardType: 'Debit',
         cardLevel: 'Silver',
-        cvv: '987'
+        cvv: '987',
+        cardStatus: 'Active',
+        dailyLimit: 40000,
+        internationalUsageEnabled: false
       },
       {
         customerId: 'CUST007',
@@ -95,7 +113,10 @@ export class CardsComponent implements OnInit {
         pin: '6781',
         cardType: 'Credit',
         cardLevel: 'Gold',
-        cvv: '159'
+        cvv: '159',
+        cardStatus: 'Active',
+        dailyLimit: 80000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST008',
@@ -107,7 +128,10 @@ export class CardsComponent implements OnInit {
         pin: '1456',
         cardType: 'Debit',
         cardLevel: 'Silver',
-        cvv: '753'
+        cvv: '753',
+        cardStatus: 'Inactive',
+        dailyLimit: 25000,
+        internationalUsageEnabled: false
       },
       {
         customerId: 'CUST009',
@@ -119,7 +143,10 @@ export class CardsComponent implements OnInit {
         pin: '7532',
         cardType: 'Credit',
         cardLevel: 'Platinum',
-        cvv: '456'
+        cvv: '456',
+        cardStatus: 'Active',
+        dailyLimit: 90000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST010',
@@ -131,7 +158,10 @@ export class CardsComponent implements OnInit {
         pin: '5672',
         cardType: 'Debit',
         cardLevel: 'Gold',
-        cvv: '159'
+        cvv: '159',
+        cardStatus: 'Active',
+        dailyLimit: 50000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST011',
@@ -143,7 +173,10 @@ export class CardsComponent implements OnInit {
         pin: '1357',
         cardType: 'Credit',
         cardLevel: 'Silver',
-        cvv: '951'
+        cvv: '951',
+        cardStatus: 'Active',
+        dailyLimit: 45000,
+        internationalUsageEnabled: false
       },
       {
         customerId: 'CUST012',
@@ -155,7 +188,10 @@ export class CardsComponent implements OnInit {
         pin: '3579',
         cardType: 'Debit',
         cardLevel: 'Gold',
-        cvv: '753'
+        cvv: '753',
+        cardStatus: 'Active',
+        dailyLimit: 55000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST013',
@@ -167,7 +203,10 @@ export class CardsComponent implements OnInit {
         pin: '9753',
         cardType: 'Credit',
         cardLevel: 'Silver',
-        cvv: '852'
+        cvv: '852',
+        cardStatus: 'Inactive',
+        dailyLimit: 20000,
+        internationalUsageEnabled: false
       },
       {
         customerId: 'CUST014',
@@ -179,7 +218,10 @@ export class CardsComponent implements OnInit {
         pin: '6547',
         cardType: 'Debit',
         cardLevel: 'Gold',
-        cvv: '147'
+        cvv: '147',
+        cardStatus: 'Active',
+        dailyLimit: 70000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST015',
@@ -191,7 +233,10 @@ export class CardsComponent implements OnInit {
         pin: '3691',
         cardType: 'Credit',
         cardLevel: 'Platinum',
-        cvv: '258'
+        cvv: '258',
+        cardStatus: 'Active',
+        dailyLimit: 95000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST016',
@@ -203,7 +248,10 @@ export class CardsComponent implements OnInit {
         pin: '2583',
         cardType: 'Debit',
         cardLevel: 'Gold',
-        cvv: '456'
+        cvv: '456',
+        cardStatus: 'Active',
+        dailyLimit: 60000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST017',
@@ -215,7 +263,10 @@ export class CardsComponent implements OnInit {
         pin: '7412',
         cardType: 'Credit',
         cardLevel: 'Silver',
-        cvv: '963'
+        cvv: '963',
+        cardStatus: 'Inactive',
+        dailyLimit: 35000,
+        internationalUsageEnabled: false
       },
       {
         customerId: 'CUST018',
@@ -227,7 +278,10 @@ export class CardsComponent implements OnInit {
         pin: '3697',
         cardType: 'Debit',
         cardLevel: 'Platinum',
-        cvv: '789'
+        cvv: '789',
+        cardStatus: 'Active',
+        dailyLimit: 80000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST019',
@@ -239,7 +293,10 @@ export class CardsComponent implements OnInit {
         pin: '1478',
         cardType: 'Credit',
         cardLevel: 'Gold',
-        cvv: '321'
+        cvv: '321',
+        cardStatus: 'Active',
+        dailyLimit: 70000,
+        internationalUsageEnabled: true
       },
       {
         customerId: 'CUST020',
@@ -251,9 +308,13 @@ export class CardsComponent implements OnInit {
         pin: '7893',
         cardType: 'Debit',
         cardLevel: 'Silver',
-        cvv: '654'
+        cvv: '654',
+        cardStatus: 'Inactive',
+        dailyLimit: 20000,
+        internationalUsageEnabled: false
       }
     ];
+    
     
 
   }
