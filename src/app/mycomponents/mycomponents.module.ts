@@ -26,6 +26,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DialogModule } from 'primeng/dialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CardsComponent } from './cards/cards.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 
 
@@ -43,6 +44,7 @@ import { CardsComponent } from './cards/cards.component';
     TopbarComponent,
     AccountsComponent,
     CardsComponent,
+    EmployeesComponent,
     
   ],
   imports: [
