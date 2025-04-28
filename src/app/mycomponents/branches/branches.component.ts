@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class BranchesComponent implements OnInit {
   branchesData: any[];
   branch : any ;
+  selectedBranch : any = 0;
+  employeesList :any[] =[];
   yearlyPerformanceChartData: any;  
   yearlyPerformanceChartOptions: any;  
-  selectedBranch : any = 0;
+
   loanRepaymentStatusChartData: any;
   loanTypeDistributionChartData: any;
   transactionChartData: any;
@@ -20,13 +22,16 @@ export class BranchesComponent implements OnInit {
   loanTypeDistributionChartOptions: any;
   transactionChartOptions: any;
   transactionCategoryChartOptions: any;
+
+
   cards2 = ['Card 1', 'Card 2',  'Card 3' ];
   cityTabs = [
     { label: 'Mumbai', value: 1 },
     { label: 'Delhi', value: 2 },
     { label: 'Chennai', value: 3 },
-    { label: 'Hyderabad', value: 4 },
-    { label: 'Pune', value: 5 }
+    { label: 'Pune', value: 4 },
+    { label: 'Banglore', value: 5 },
+    {label : 'Hyderabad' , value :6}
   ];
 
   constructor() { 
@@ -37,7 +42,7 @@ export class BranchesComponent implements OnInit {
         branchName: 'Mumbai Main Branch',
         location: 'Mumbai',
         region: 'Western',
-        yearlyPerformance: [40, 78, 80, 50, 90, 94, 55, 34, 45, 60, 50, 40],
+        yearlyPerformance: [30, 42, 43, 39, 40, 36, 35, 32, 43, 50, 67, 65],
         transactionCategoryDistribution: {
           deposits: 40,
           withdrawals: 30,
@@ -101,7 +106,7 @@ export class BranchesComponent implements OnInit {
         branchName: 'Delhi Branch',
         location: 'Delhi',
         region: 'Northern',
-        yearlyPerformance: [68, 70, 72, 74, 77, 80, 83, 85, 88, 90, 92, 95],
+        yearlyPerformance: [42, 50, 60, 65, 65, 70, 53, 65, 54, 40, 30, 35],
         transactionCategoryDistribution: {
           deposits: 50,
           withdrawals: 25,
@@ -164,7 +169,7 @@ export class BranchesComponent implements OnInit {
         branchName: 'Chennai Branch',
         location: 'Chennai',
         region: 'Southern',
-        yearlyPerformance: [70, 72, 75, 77, 80, 83, 85, 87, 90, 92, 93, 95],
+        yearlyPerformance: [20, 32, 45, 57, 60, 63, 65, 77, 80, 82, 93, 95],
         transactionCategoryDistribution: {
           deposits: 45,
           withdrawals: 25,
@@ -227,7 +232,7 @@ export class BranchesComponent implements OnInit {
         branchName: 'Pune Branch',
         location: 'Pune',
         region: 'Western',
-        yearlyPerformance: [65, 67, 70, 72, 74, 77, 79, 81, 84, 86, 88, 90],
+        yearlyPerformance: [65, 67, 50, 43, 32, 35, 36, 40, 39, 43, 42, 30],
         transactionCategoryDistribution: {
           deposits: 40,
           withdrawals: 30,
@@ -353,7 +358,7 @@ export class BranchesComponent implements OnInit {
         branchName: 'Hyderabad Branch',
         location: 'Hyderabad',
         region: 'Southern',
-        yearlyPerformance: [70, 73, 75, 77, 80, 83, 85, 87, 89, 91, 93, 95],
+        yearlyPerformance: [40, 78, 80, 50, 90, 94, 55, 34, 45, 60, 50, 40],
         transactionCategoryDistribution: {
           deposits: 50,
           withdrawals: 20,
@@ -416,6 +421,7 @@ export class BranchesComponent implements OnInit {
     this.branch = this.branchesData[0];
     console.log(this.branch);
     
+    this.employeesList = this.branchesData[0].employees;
 
 
   }
@@ -499,15 +505,14 @@ export class BranchesComponent implements OnInit {
 
     // Transaction Pie Chart (this is a new chart based on transaction data)
     this.transactionChartData = {
-      labels: ['Deposits', 'Withdrawals', 'Loan Payments', 'Money Transfers', 'Other'],
+      labels: ['Failed Transactions', 'Successful Transactions', ],
       datasets: [
         {
           data: [
-            this.branch.transactionCategoryDistribution.deposits,
-            this.branch.transactionCategoryDistribution.withdrawals,
-            this.branch.transactionCategoryDistribution.loanPayments,
-            this.branch.transactionCategoryDistribution.moneyTransfers,
-            this.branch.transactionCategoryDistribution.other
+            this.branch.performance.transactions.failedTransactions,
+            this.branch.performance.transactions.successfulTransactions,
+            
+    
           ],
           backgroundColor: ['#3B6978', '#204051', '#D9E4E6', '#F2A65A'],
           hoverBackgroundColor: ['#2A4D56', '#1A2A35', '#D9E4E6', '#E39D3B']
@@ -527,8 +532,8 @@ export class BranchesComponent implements OnInit {
             this.branch.transactionCategoryDistribution.moneyTransfers,
             this.branch.transactionCategoryDistribution.other
           ],
-          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77'],
-          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B']
+          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77', '#F2A65A'],
+          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B', '#F2A65A']
         }
       ]
     };
