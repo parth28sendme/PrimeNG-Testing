@@ -497,8 +497,8 @@ export class BranchesComponent implements OnInit {
             this.branch.loanTypeDistribution.businessLoans,
             this.branch.loanTypeDistribution.others
           ],
-          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77'],
-          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B']
+          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77' ,'#F2A65A'],
+          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B', '#F2A65A']
         }
       ]
     };
