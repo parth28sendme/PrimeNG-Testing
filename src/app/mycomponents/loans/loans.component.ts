@@ -412,7 +412,7 @@ export class LoansComponent implements OnInit {
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
       });
     
-      saveAs(data, 'AccountData.xlsx');
+      saveAs(data, 'LoanData.xlsx');
     }
   
 

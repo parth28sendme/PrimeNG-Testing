@@ -7,10 +7,109 @@
 
 
 
+<div class="mt-5 col-12">
+  <div class="row">
+    <div class="d-flex flex-row justify-content-between w-100">
+
+      <!-- Line Chart on the Left -->
+      <div class="col-md-7 p-card">
+        <h3 class="mt-3" style="text-align: center;">Annual Performance</h3>
+        <div class="p-card-body">
+          <p-chart 
+          type="line" 
+          [data]="yearlyPerformanceChartData" 
+          [options]="yearlyPerformanceChartOptions" 
+          style="height:400px">
+        </p-chart>
+        </div>
+      </div>
+
+      <!-- Cards on the Right -->
+      <div class="col-md-5 py-4 d-flex flex-wrap justify-content-center align-content-md-center gap-5  mt-2 mx-4">
+         <div *ngFor="let card of cards2" class="col-10 p-card">
+            <div class="p-card-body box-style">
+             <h5 style="color: #001845; text-align: center;">{{ card }}</h5>
+            </div>
+         </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class=" col-12 mt-5">
+
+  <div class="row  d-flex justify-content-end">
+    <div class="col-md-4 p-4 d-flex flex-wrap justify-content-center align-content-md-center gap-5  mt-2 ">
+      <div *ngFor="let card of cards2" class="col-10 p-card">
+        <div class="p-card-body box-style">
+         <h5 style="color: #001845; text-align: center;">{{ card }}</h5>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-md-4 p-4 ">
+      <div class="p-4 p-card">
+        <h5>Loan Type Distribution</h5>
+        <div class="p-card-body">
+          <p-chart type="doughnut" [data]="loanTypeDistributionChartData" [options]="loanTypeDistributionChartOptions"></p-chart>      
+        </div>
+      </div>
+    </div> 
+
+    <div class="col-md-4 p-4 ">
+      <div class="p-4 p-card">
+        <h5>Loan Repayment Status</h5>
+        <div class="p-card-body">
+            <p-chart type="doughnut" [data]="loanRepaymentStatusChartData" [options]="loanRepaymentStatusChartOptions"></p-chart>
+        </div>
+      </div>
+    </div> 
+
+        </div>
+      </div>
+
+
+      <div class=" col-12 mt-5">
+        <div class="row  d-flex justify-content-end">
+            
+          <div class="col-md-4 p-4 ">
+            <div class="p-4 p-card">
+              <h5 style="text-align: center;">Transaction Distribution</h5>
+              <div class="p-card-body">
+                  <p-chart type="doughnut" [data]="transactionChartData" [options]="transactionChartOptions"></p-chart>      
+              </div>
+            </div>
+          </div> 
+      
+          <div class="col-md-4 p-4 ">
+            <div class="p-4 p-card">
+              <h5>Transaction Category Distribution</h5>
+              <div class="p-card-body">
+                <p-chart type="doughnut" [data]="transactionCategoryChartData" [options]="transactionCategoryChartOptions"></p-chart>              
+              </div>
+            </div>
+          </div> 
+
+          <div class="col-md-4 p-4 d-flex flex-wrap justify-content-center align-content-md-center gap-5  mt-2 ">
+            <div *ngFor="let card of cards2" class="col-10 p-card">
+              <div class="p-card-body box-style">
+               <h5 style="color: #001845; text-align: center;">{{ card }}</h5>
+            </div>
+           </div>    
+          </div>
+              </div>
+            </div>
+      
 
 
 
 
+  
+
+
+  
 
 
     

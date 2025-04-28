@@ -6,21 +6,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./branches.component.scss']
 })
 export class BranchesComponent implements OnInit {
-  branches: any[];
-  selectedCity: any;
-  selectedCities: any[] = [];
-  data: any[] =[];
-  pieChartData :any;
-  lineChartData : any;
+  branchesData: any[];
+  branch : any ;
+  yearlyPerformanceChartData: any;  
+  yearlyPerformanceChartOptions: any;  
+
+  loanRepaymentStatusChartData: any;
+  loanTypeDistributionChartData: any;
+  transactionChartData: any;
+  transactionCategoryChartData: any;
+
+  loanRepaymentStatusChartOptions: any;
+  loanTypeDistributionChartOptions: any;
+  transactionChartOptions: any;
+  transactionCategoryChartOptions: any;
+  cards2 = ['Card 1', 'Card 2',  'Card 3' ];
+
   constructor() { 
 
-    this.branches = [
+    this.branchesData = [
       {
         branchId: 'BR001',
         branchName: 'Mumbai Main Branch',
         location: 'Mumbai',
         region: 'Western',
-        yearlyPerformance: [75, 78, 80, 82, 85, 88, 90, 92, 95, 97, 98, 100],
+        yearlyPerformance: [40, 78, 80, 50, 90, 94, 55, 34, 45, 60, 50, 40],
         transactionCategoryDistribution: {
           deposits: 40,
           withdrawals: 30,
@@ -396,6 +406,9 @@ export class BranchesComponent implements OnInit {
       }
     ];
     
+    this.branch = this.branchesData[0];
+    console.log(this.branch);
+    
 
 
   }
@@ -403,8 +416,155 @@ export class BranchesComponent implements OnInit {
 
   
   ngOnInit(): void {
-  console.log(this.branches)
-
+  console.log("branch",this.branch);
+  this.prepareYearlyPerformanceChart();
+  this.prepareCharts();
   }
 
+  prepareYearlyPerformanceChart() {
+    this.yearlyPerformanceChartData = {
+      labels: [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      ],
+      datasets: [
+        {
+          label: 'Yearly Performance',
+          data: this.branch.yearlyPerformance,
+          fill: false,
+          borderColor: '#42A5F5',
+          tension: 0.4
+        }
+      ]
+    };
+
+    this.yearlyPerformanceChartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+  }
+
+  prepareCharts() {
+    // Loan Repayment Status Pie Chart
+    this.loanRepaymentStatusChartData = {
+      labels: ['Fully Paid', 'Overdue', 'Pending', 'Defaulted'],
+      datasets: [
+        {
+          data: [
+            this.branch.loanRepaymentStatus.fullyPaid,
+            this.branch.loanRepaymentStatus.overdue,
+            this.branch.loanRepaymentStatus.pending,
+            this.branch.loanRepaymentStatus.defaulted
+          ],
+          backgroundColor: ['#3B6978', '#204051', '#D9E4E6', '#F2A65A'],
+          hoverBackgroundColor: ['#2A4D56', '#1A2A35', '#D9E4E6', '#E39D3B']
+        }
+      ]
+    };
+
+    // Loan Type Distribution Pie Chart
+    this.loanTypeDistributionChartData = {
+      labels: ['Home Loans', 'Personal Loans', 'Auto Loans', 'Business Loans', 'Others'],
+      datasets: [
+        {
+          data: [
+            this.branch.loanTypeDistribution.homeLoans,
+            this.branch.loanTypeDistribution.personalLoans,
+            this.branch.loanTypeDistribution.autoLoans,
+            this.branch.loanTypeDistribution.businessLoans,
+            this.branch.loanTypeDistribution.others
+          ],
+          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77'],
+          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B']
+        }
+      ]
+    };
+
+    // Transaction Pie Chart (this is a new chart based on transaction data)
+    this.transactionChartData = {
+      labels: ['Deposits', 'Withdrawals', 'Loan Payments', 'Money Transfers', 'Other'],
+      datasets: [
+        {
+          data: [
+            this.branch.transactionCategoryDistribution.deposits,
+            this.branch.transactionCategoryDistribution.withdrawals,
+            this.branch.transactionCategoryDistribution.loanPayments,
+            this.branch.transactionCategoryDistribution.moneyTransfers,
+            this.branch.transactionCategoryDistribution.other
+          ],
+          backgroundColor: ['#3B6978', '#204051', '#D9E4E6', '#F2A65A'],
+          hoverBackgroundColor: ['#2A4D56', '#1A2A35', '#D9E4E6', '#E39D3B']
+        }
+      ]
+    };
+
+    // Transaction Category Distribution Pie Chart
+    this.transactionCategoryChartData = {
+      labels: ['Deposits', 'Withdrawals', 'Loan Payments', 'Money Transfers', 'Other'],
+      datasets: [
+        {
+          data: [
+            this.branch.transactionCategoryDistribution.deposits,
+            this.branch.transactionCategoryDistribution.withdrawals,
+            this.branch.transactionCategoryDistribution.loanPayments,
+            this.branch.transactionCategoryDistribution.moneyTransfers,
+            this.branch.transactionCategoryDistribution.other
+          ],
+          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77'],
+          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B']
+        }
+      ]
+    };
+
+    // You can define options if necessary for each chart
+    this.loanRepaymentStatusChartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          display: true
+        }
+      }
+    };
+
+    this.loanTypeDistributionChartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          display: true
+        }
+      }
+    };
+
+    this.transactionChartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          display: true
+        }
+      }
+    };
+
+    this.transactionCategoryChartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          display: true
+        }
+      }
+    };
+  }
 }

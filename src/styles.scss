@@ -50,7 +50,6 @@ body {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   pointer-events: none;
-  
 }
 
 
@@ -88,7 +87,6 @@ body {
     padding-bottom: 0rem !important; /* or 0 to remove completely */
   }
   
-  
   ::ng-deep .p-card-body {
     padding-top: 0rem !important;
     padding-bottom: 0rem !important;
@@ -125,6 +123,7 @@ body {
     color: #0d1763;
   }
 
+  
   a {
     text-decoration: none;
   }
@@ -174,6 +173,11 @@ body {
     font-weight: 600;
     border-radius: 8px;
   }
+  .primary {
+    background-color: #0d1763 !important;
+    border-color: #0d1763 !important;
+    color: #ffffff !important;
+  }
 
   .btn-primary:hover {
     background-color: #2566c7 !important;
@@ -182,7 +186,7 @@ body {
   
   .status-pill {
     display: inline-block;
-    padding: 1px 1px;
+    padding: 6px 6px;
     color: #fff;
     border-radius: 5px; /* pill shape */
     font-size: 0.875rem;
