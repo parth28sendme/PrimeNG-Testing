@@ -53,9 +53,18 @@ body {
 }
 
 
+.p-tabview-nav-link {
+  box-shadow: none !important;
+  background-color: #f8f9fa !important;
+}
 
+.p-tabview .p-tabview-panels{
+  background-color: #f8f9fa !important;
+}
 
-
+.p-tabview .p-tabview-nav{
+  background-color: #f8f9fa !important;
+}
 
 /* Targets the main dropdown */
 .p-dropdown {
@@ -78,8 +87,10 @@ body {
 
 
 
+:host ::ng-deep .p-tabview-nav-link {
+  box-shadow: none !important;
 
-
+}
 
 
 ::ng-deep .p-card {

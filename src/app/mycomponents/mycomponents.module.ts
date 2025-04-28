@@ -27,6 +27,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CardsComponent } from './cards/cards.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { TabViewModule } from 'primeng/tabview';
+
 
 
 
@@ -60,7 +62,8 @@ import { EmployeesComponent } from './employees/employees.component';
     CardModule,
     PaginatorModule,
     DialogModule,
-    InputSwitchModule
+    InputSwitchModule,
+    TabViewModule
     
   ],
 

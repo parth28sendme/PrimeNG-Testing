@@ -10,7 +10,7 @@ export class BranchesComponent implements OnInit {
   branch : any ;
   yearlyPerformanceChartData: any;  
   yearlyPerformanceChartOptions: any;  
-
+  selectedBranch : any = 0;
   loanRepaymentStatusChartData: any;
   loanTypeDistributionChartData: any;
   transactionChartData: any;
@@ -21,6 +21,13 @@ export class BranchesComponent implements OnInit {
   transactionChartOptions: any;
   transactionCategoryChartOptions: any;
   cards2 = ['Card 1', 'Card 2',  'Card 3' ];
+  cityTabs = [
+    { label: 'Mumbai', value: 1 },
+    { label: 'Delhi', value: 2 },
+    { label: 'Chennai', value: 3 },
+    { label: 'Hyderabad', value: 4 },
+    { label: 'Pune', value: 5 }
+  ];
 
   constructor() { 
 
@@ -566,5 +573,13 @@ export class BranchesComponent implements OnInit {
         }
       }
     };
+  }
+
+  onTabChange(event: any) {
+  const index = event.index;
+  this.branch = this.branchesData[index];
+  this.prepareYearlyPerformanceChart();
+  this.prepareCharts();
+  
   }
 }
