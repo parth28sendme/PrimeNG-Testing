@@ -18,7 +18,7 @@
 
       <!-- Line Chart on the Left -->
       <div class="col-md-7 p-card">
-        <h3 class="mt-3" style="text-align: center;">Annual Performance</h3>
+        <h3 class="mt-3" style="text-align: center;"> Branch Annual Performance</h3>
         <div class="p-card-body">
           <p-chart 
           type="line" 
@@ -85,13 +85,7 @@
 <div class=" col-12 mt-5">
 
   <div class="row  d-flex justify-content-end">
-    <div class="col-md-4 p-4 d-flex flex-wrap justify-content-center align-content-md-center gap-5  mt-2 ">
-      <div *ngFor="let card of cards2" class="col-10 p-card">
-        <div class="p-card-body box-style">
-         <h5 style="color: #001845; text-align: center;">{{ card }}</h5>
-      </div>
-     </div>
-    </div>
+   
 
     <div class="col-md-4 p-4 ">
       <div class="p-4 p-card">
@@ -110,6 +104,14 @@
         </div>
       </div>
     </div> 
+
+    <div class="col-md-4 p-4 d-flex flex-wrap justify-content-center align-content-md-center gap-5  mt-2 ">
+      <div *ngFor="let card of cards2" class="col-10 p-card">
+        <div class="p-card-body box-style">
+         <h5 style="color: #001845; text-align: center;">{{ card }}</h5>
+      </div>
+     </div>
+    </div>
 
         </div>
       </div>

@@ -24,7 +24,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Gold',
         cvv: '123',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 50000,
         internationalUsageEnabled: true
       },
@@ -39,7 +39,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Platinum',
         cvv: '456',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 100000,
         internationalUsageEnabled: true
       },
@@ -54,7 +54,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Silver',
         cvv: '789',
-        cardStatus: 'Inactive',
+        IsActive: false,
         dailyLimit: 30000,
         internationalUsageEnabled: false
       },
@@ -69,7 +69,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Platinum',
         cvv: '321',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 70000,
         internationalUsageEnabled: true
       },
@@ -84,7 +84,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Gold',
         cvv: '654',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 60000,
         internationalUsageEnabled: true
       },
@@ -99,7 +99,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Silver',
         cvv: '987',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 40000,
         internationalUsageEnabled: false
       },
@@ -114,7 +114,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Gold',
         cvv: '159',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 80000,
         internationalUsageEnabled: true
       },
@@ -129,7 +129,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Silver',
         cvv: '753',
-        cardStatus: 'Inactive',
+        IsActive: false,
         dailyLimit: 25000,
         internationalUsageEnabled: false
       },
@@ -144,7 +144,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Platinum',
         cvv: '456',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 90000,
         internationalUsageEnabled: true
       },
@@ -159,7 +159,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Gold',
         cvv: '159',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 50000,
         internationalUsageEnabled: true
       },
@@ -174,7 +174,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Silver',
         cvv: '951',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 45000,
         internationalUsageEnabled: false
       },
@@ -189,7 +189,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Gold',
         cvv: '753',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 55000,
         internationalUsageEnabled: true
       },
@@ -204,7 +204,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Silver',
         cvv: '852',
-        cardStatus: 'Inactive',
+        IsActive: false,
         dailyLimit: 20000,
         internationalUsageEnabled: false
       },
@@ -219,7 +219,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Gold',
         cvv: '147',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 70000,
         internationalUsageEnabled: true
       },
@@ -234,7 +234,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Platinum',
         cvv: '258',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 95000,
         internationalUsageEnabled: true
       },
@@ -249,7 +249,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Gold',
         cvv: '456',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 60000,
         internationalUsageEnabled: true
       },
@@ -264,7 +264,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Silver',
         cvv: '963',
-        cardStatus: 'Inactive',
+        IsActive: false,
         dailyLimit: 35000,
         internationalUsageEnabled: false
       },
@@ -279,7 +279,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Platinum',
         cvv: '789',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 80000,
         internationalUsageEnabled: true
       },
@@ -294,7 +294,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Credit',
         cardLevel: 'Gold',
         cvv: '321',
-        cardStatus: 'Active',
+        IsActive: true,
         dailyLimit: 70000,
         internationalUsageEnabled: true
       },
@@ -309,7 +309,7 @@ export class CardsComponent implements OnInit {
         cardType: 'Debit',
         cardLevel: 'Silver',
         cvv: '654',
-        cardStatus: 'Inactive',
+        IsActive: false,
         dailyLimit: 20000,
         internationalUsageEnabled: false
       }
