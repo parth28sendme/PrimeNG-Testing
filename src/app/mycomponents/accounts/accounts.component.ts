@@ -90,7 +90,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST002',
-      branch: 'Delhi Central Branch',
+      branch: 'Delhi Branch',
       accountData: {
         accountNumber: 'BA2234567891',
         accountType: 'Current',
@@ -116,12 +116,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST003',
-      branch: 'Bangalore North Branch',
+      branch: 'Chennai Branch',
       accountData: {
         accountNumber: 'BA3234567892',
         accountType: 'Savings',
         balance: 75000,
-        status: 'Inactive',
+        status: 'Closed',
         openingDate: '2020-01-20',
         createdBy: 'EMP105',
         lastUpdated: '2025-04-18T08:15:00Z'
@@ -142,12 +142,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST004',
-      branch: 'Chennai South Branch',
+      branch: 'Pune Branch',
       accountData: {
         accountNumber: 'BA4234567893',
         accountType: 'Current',
         balance: 50000,
-        status: 'Active',
+        status: 'Frozen',
         openingDate: '2019-11-05',
         createdBy: 'EMP106',
         lastUpdated: '2025-04-19T15:00:00Z'
@@ -168,7 +168,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST005',
-      branch: 'Hyderabad Central Branch',
+      branch: 'Hyderabad Branch',
       accountData: {
         accountNumber: 'BA5234567894',
         accountType: 'Savings',
@@ -194,7 +194,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST006',
-      branch: 'Pune East Branch',
+      branch: 'Pune Branch',
       accountData: {
         accountNumber: 'BA6234567895',
         accountType: 'Current',
@@ -220,12 +220,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST007',
-      branch: 'Ahmedabad Main Branch',
+      branch: 'Bangalore Branch',
       accountData: {
         accountNumber: 'BA7234567896',
         accountType: 'Savings',
         balance: 31000,
-        status: 'Inactive',
+        status: 'Active',
         openingDate: '2020-09-25',
         createdBy: 'EMP109',
         lastUpdated: '2025-04-21T14:00:00Z'
@@ -246,7 +246,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST008',
-      branch: 'Jaipur City Branch',
+      branch: 'Chennai Branch',
       accountData: {
         accountNumber: 'BA8234567897',
         accountType: 'Current',
@@ -272,12 +272,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST009',
-      branch: 'Kolkata South Branch',
+      branch: 'Mumbai Main Branch',
       accountData: {
         accountNumber: 'BA9234567898',
         accountType: 'Savings',
         balance: 58000,
-        status: 'Active',
+        status: 'Frozen',
         openingDate: '2021-01-05',
         createdBy: 'EMP111',
         lastUpdated: '2025-04-19T13:10:00Z'
@@ -298,12 +298,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST010',
-      branch: 'Lucknow Main Branch',
+      branch: 'Delhi Branch',
       accountData: {
         accountNumber: 'BA1023456789',
         accountType: 'Current',
         balance: 135000,
-        status: 'Inactive',
+        status: 'Active',
         openingDate: '2020-05-19',
         createdBy: 'EMP112',
         lastUpdated: '2025-04-18T12:00:00Z'
@@ -324,7 +324,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST011',
-      branch: 'Indore Central Branch',
+      branch: 'Delhi Branch',
       accountData: {
         accountNumber: 'BA1123456790',
         accountType: 'Savings',
@@ -350,7 +350,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST012',
-      branch: 'Bhopal West Branch',
+      branch: 'Bangalore Branch',
       accountData: {
         accountNumber: 'BA1223456791',
         accountType: 'Current',
@@ -376,12 +376,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST013',
-      branch: 'Surat Downtown Branch',
+      branch: 'Chennai Branch',
       accountData: {
         accountNumber: 'BA1323456792',
         accountType: 'Savings',
         balance: 21000,
-        status: 'Inactive',
+        status: 'Active',
         openingDate: '2020-12-31',
         createdBy: 'EMP115',
         lastUpdated: '2025-04-26T08:00:00Z'
@@ -402,12 +402,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST014',
-      branch: 'Nagpur City Branch',
+      branch: 'Delhi Branch',
       accountData: {
         accountNumber: 'BA1423456793',
         accountType: 'Current',
         balance: 145000,
-        status: 'Active',
+        status: 'Frozen',
         openingDate: '2018-08-20',
         createdBy: 'EMP116',
         lastUpdated: '2025-04-21T15:30:00Z'
@@ -428,7 +428,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST015',
-      branch: 'Kanpur Main Branch',
+      branch: 'Mumbai Main Branch',
       accountData: {
         accountNumber: 'BA1523456794',
         accountType: 'Savings',
@@ -454,12 +454,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST016',
-      branch: 'Patna Central Branch',
+      branch: 'Chennai Branch',
       accountData: {
         accountNumber: 'BA1623456795',
         accountType: 'Current',
         balance: 117000,
-        status: 'Inactive',
+        status: 'Closed',
         openingDate: '2019-09-15',
         createdBy: 'EMP118',
         lastUpdated: '2025-04-20T09:30:00Z'
@@ -480,7 +480,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST017',
-      branch: 'Chennai South Branch',
+      branch: 'Chennai Branch',
       accountData: {
         accountNumber: 'BA1723456796',
         accountType: 'Savings',
@@ -506,12 +506,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST018',
-      branch: 'Kochi Branch',
+      branch: 'Pune Branch',
       accountData: {
         accountNumber: 'BA1823456797',
         accountType: 'Current',
         balance: 76000,
-        status: 'Active',
+        status: 'Frozen',
         openingDate: '2020-06-28',
         createdBy: 'EMP120',
         lastUpdated: '2025-04-24T15:00:00Z'
@@ -532,12 +532,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST019',
-      branch: 'Bangalore East Branch',
+      branch: 'Mumbai Main Branch',
       accountData: {
         accountNumber: 'BA1923456798',
         accountType: 'Savings',
         balance: 54000,
-        status: 'Inactive',
+        status: 'Closed',
         openingDate: '2021-12-15',
         createdBy: 'EMP121',
         lastUpdated: '2025-04-25T17:10:00Z'
@@ -558,7 +558,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST020',
-      branch: 'Delhi West Branch',
+      branch: 'Hyderabad Branch',
       accountData: {
         accountNumber: 'BA2023456799',
         accountType: 'Current',
@@ -584,7 +584,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST021',
-      branch: 'Goa Central Branch',
+      branch: 'Delhi Branch',
       accountData: {
         accountNumber: 'BA2123456800',
         accountType: 'Savings',
@@ -610,12 +610,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST022',
-      branch: 'Noida Branch',
+      branch: 'Chennai Branch',
       accountData: {
         accountNumber: 'BA2223456801',
         accountType: 'Current',
         balance: 50000,
-        status: 'Active',
+        status: 'Frozen',
         openingDate: '2020-04-25',
         createdBy: 'EMP124',
         lastUpdated: '2025-04-21T18:50:00Z'
@@ -636,12 +636,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST023',
-      branch: 'Vadodara East Branch',
+      branch: 'Bangalore Branch',
       accountData: {
         accountNumber: 'BA2323456802',
         accountType: 'Savings',
         balance: 17000,
-        status: 'Inactive',
+        status: 'Active',
         openingDate: '2019-11-15',
         createdBy: 'EMP125',
         lastUpdated: '2025-04-26T19:10:00Z'
@@ -662,7 +662,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST024',
-      branch: 'Ranchi Central Branch',
+      branch: 'Hyderabad Branch',
       accountData: {
         accountNumber: 'BA2423456803',
         accountType: 'Current',
@@ -688,12 +688,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST025',
-      branch: 'Agra East Branch',
+      branch: 'Pune Branch',
       accountData: {
         accountNumber: 'BA2523456804',
         accountType: 'Savings',
         balance: 82000,
-        status: 'Active',
+        status: 'Frozen',
         openingDate: '2021-05-10',
         createdBy: 'EMP127',
         lastUpdated: '2025-04-23T10:40:00Z'
@@ -714,12 +714,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST026',
-      branch: 'Faridabad Branch',
+      branch: 'Mumbai Main Branch',
       accountData: {
         accountNumber: 'BA2623456805',
         accountType: 'Current',
         balance: 45000,
-        status: 'Inactive',
+        status: 'Closed',
         openingDate: '2022-08-12',
         createdBy: 'EMP128',
         lastUpdated: '2025-04-19T09:30:00Z'
@@ -740,7 +740,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST027',
-      branch: 'Surat West Branch',
+      branch: 'Delhi Branch',
       accountData: {
         accountNumber: 'BA2723456806',
         accountType: 'Savings',
@@ -766,12 +766,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST028',
-      branch: 'Indore Central Branch',
+      branch: 'Hyderabad Branch',
       accountData: {
         accountNumber: 'BA2823456807',
         accountType: 'Current',
         balance: 85000,
-        status: 'Inactive',
+        status: 'Active',
         openingDate: '2020-09-10',
         createdBy: 'EMP130',
         lastUpdated: '2025-04-18T11:20:00Z'
@@ -792,12 +792,12 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST029',
-      branch: 'Navi Mumbai Branch',
+      branch: 'Pune Branch',
       accountData: {
         accountNumber: 'BA2923456808',
         accountType: 'Savings',
         balance: 22000,
-        status: 'Active',
+        status: 'Frozen',
         openingDate: '2021-12-20',
         createdBy: 'EMP131',
         lastUpdated: '2025-04-24T12:00:00Z'
@@ -818,7 +818,7 @@ export class AccountsComponent implements OnInit {
     },
     {
       customerId: 'CUST030',
-      branch: 'Pune East Branch',
+      branch: 'Bangalore Branch',
       accountData: {
         accountNumber: 'BA3023456809',
         accountType: 'Current',
