@@ -498,8 +498,9 @@ export class BranchesComponent implements OnInit {
             this.branch.loanTypeDistribution.businessLoans,
             this.branch.loanTypeDistribution.others
           ],
-          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77' ,'#F2A65A'],
-          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B', '#F2A65A']
+          backgroundColor: ['#4F6B6F', '#2E4D56', '#A9C1B7', '#5C7F7A', '#4F6B6F'],
+          hoverBackgroundColor: ['#3A4C50', '#1D2F3E', '#A9C1B7', '#4C6E6A', '#3A4C50'],
+          
         }
       ]
     };
@@ -533,8 +534,8 @@ export class BranchesComponent implements OnInit {
             this.branch.transactionCategoryDistribution.moneyTransfers,
             this.branch.transactionCategoryDistribution.other
           ],
-          backgroundColor: ['#E07A5F', '#F4F1BB', '#81B29A', '#D9BF77', '#F2A65A'],
-          hoverBackgroundColor: ['#F2A98C', '#D7D6A1', '#A7C6B5', '#E8D06B', '#F2A65A']
+          backgroundColor: ['#4F6B6F', '#2E4D56', '#A9C1B7', '#5C7F7A', '#4F6B6F'],
+          hoverBackgroundColor: ['#3A4C50', '#1D2F3E', '#A9C1B7', '#4C6E6A', '#3A4C50'],
         }
       ]
     };

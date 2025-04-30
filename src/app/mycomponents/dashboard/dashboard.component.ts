@@ -17,8 +17,15 @@ export class DashboardComponent implements OnInit {
   transactionStatusChart :any;
   transactionTypeData : any;
   lineChartOptions : any;
+  topEmployees :any[];
   cards1 = ['Card 1', 'Card 2',];
-  cards2 = ['Card 1', 'Card 2',  'Card 3' ];
+  stats = [
+    {name : "Card" , value : 90 },
+    {name : "Card" , value : 90 },
+    {name : "Card" , value : 90 },
+    {name : "Card" , value : 90 },
+
+  ];
 
   constructor() { 
 
@@ -35,7 +42,54 @@ export class DashboardComponent implements OnInit {
     };
     
 
- 
+     this.topEmployees = [
+      {
+        employeeId: 'E001',
+        name: 'Amit Sharma',
+        position: 'Branch Manager',
+        performanceRating: 92,
+        branch: 'Mumbai Main Branch',
+        region: 'Western'
+      },
+      {
+        employeeId: 'E021',
+        name: 'Ritika Chopra',
+        position: 'Senior Manager',
+        performanceRating: 94,
+        branch: 'Delhi Branch',
+        region: 'Northern'
+      },
+      {
+        employeeId: 'E045',
+        name: 'Ananya Krishnan',
+        position: 'Branch Manager',
+        performanceRating: 95,
+        branch: 'Chennai Branch',
+        region: 'Southern'
+      },
+      {
+        employeeId: 'E060',
+        name: 'Vikas Kulkarni',
+        position: 'Senior Manager',
+        branch: 'Pune Branch',
+        performanceRating: 92
+      },
+      {
+        employeeId: 'E075',
+        name: 'Ravi Chandrasekhar',
+        position: 'Branch Manager',
+        branch: 'Bangalore Branch',
+        performanceRating: 97
+      },
+      {
+        employeeId: 'E090',
+        name: 'Shravan Kumar',
+        position: 'Senior Manager',
+        branch: 'Hyderabad Branch',
+        performanceRating: 95
+      }
+    ];
+    
     
     
     
@@ -86,7 +140,7 @@ export class DashboardComponent implements OnInit {
       datasets: [
         {
           
-          data: [150000, 7000, 9000], // Example transaction counts
+          data: [150000, 30000, 9000], // Example transaction counts
           backgroundColor: ['#3B6978', '#204051', '#D9E4E6']
         }
       ]
