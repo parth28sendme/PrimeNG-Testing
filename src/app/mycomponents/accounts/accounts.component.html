@@ -124,14 +124,15 @@
     {{ item.label }}
   </label>
   <input 
-    [id]="item.name" 
-    type="text" 
-    pInputText 
-    [(ngModel)]="account[item.name]" 
-    [name]="item.name" 
-    class="p-inputtext-sm custom-input"
-    style="padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px;"
-  />
+  [id]="item.name" 
+  type="text" 
+  pInputText 
+  [(ngModel)]="account[item.name]" 
+  [name]="item.name" 
+  class="p-inputtext-sm custom-input blue-focus-input"
+  style="padding: 8px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px;"
+/>
+
 </div>
 
 </div>

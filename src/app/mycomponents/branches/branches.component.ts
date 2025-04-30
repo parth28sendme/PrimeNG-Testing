@@ -479,8 +479,9 @@ export class BranchesComponent implements OnInit {
             this.branch.loanRepaymentStatus.pending,
             this.branch.loanRepaymentStatus.defaulted
           ],
-          backgroundColor: ['#3B6978', '#204051', '#D9E4E6', '#F2A65A'],
-          hoverBackgroundColor: ['#2A4D56', '#1A2A35', '#D9E4E6', '#E39D3B']
+          backgroundColor: ['#3B6978', '#204051', '#D9E4E6', '#678D99'],
+          hoverBackgroundColor: ['#2A4D56', '#1A2A35', '#D9E4E6', '#4C6B74'],
+
         }
       ]
     };

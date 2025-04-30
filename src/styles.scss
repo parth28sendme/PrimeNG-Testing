@@ -15,6 +15,17 @@ body {
   overflow: hidden;
 }
 
+.blue-focus-input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: #2196F3 !important; // Blue border
+    box-shadow: 0 0 4px 1px rgba(33, 150, 243, 0.4); // Soft glow
+    outline: none;
+  }
+}
+
+
 .filters-container{
 
     display: flex;
@@ -46,7 +57,7 @@ body {
   height: 5px;
   width: 100%;
   color: #001845;
-  background: linear-gradient(to right, #001845, rgba(0, 24, 69, 0.1));
+  background: linear-gradient(to left, #001845, rgba(0, 24, 69, 0.1));
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   pointer-events: none;
@@ -160,6 +171,7 @@ body {
     background-color: #16a085; // slightly darker on hover
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
+  
   
 
 
