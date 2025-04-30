@@ -4,9 +4,13 @@
   </div>
 </div>
 
-<p-tabView (onChange)="onTabChange($event)"
-[(activeIndex)]="selectedBranch">
-  <p-tabPanel *ngFor="let city of cityTabs" [header]="city.label"  >
+<div class="mt-2">
+  <p-tabView (onChange)="onTabChange($event)"
+  [(activeIndex)]="selectedBranch">
+    <p-tabPanel *ngFor="let city of cityTabs" [header]="city.label"  >
+  
+
+
 
 
 
@@ -152,7 +156,7 @@
 
           </p-tabPanel>
         </p-tabView>
-
+      </div>
     
 
 

@@ -136,14 +136,21 @@ export class DashboardComponent implements OnInit {
 
 
     this.transactionStatusChart = {
-      labels: ['Completed', 'Pending', 'Failed'],
+      labels: ['Completed', 'Failed', 'Pending'],
       datasets: [
         {
-          
+          label: 'Transaction Count',
           data: [150000, 30000, 9000], // Example transaction counts
           backgroundColor: ['#3B6978', '#204051', '#D9E4E6']
         }
-      ]
+      ],
+      options: {
+        plugins: {
+          legend: {
+            display: false   // ← hide the legend
+          }
+        }
+      }
     };
     
 
