@@ -10,20 +10,21 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AccountsComponent implements OnInit {
 
-  selectedBranch: any;
+  selectedBranch: any = 1;
   selectedCities: any[] = [];
   data: any[] =[];
   pieChartData :any;
   lineChartData : any;
   branches: any[];
-  statusName: any;
+  statusName: any =1;
   status : any[];
   accountData : any[];
   accountTypeList : any[];
-  accountType : any;
+  accountType : any = 1;
   display: boolean = false;
   dialogFields : any[];
   account: any = {};
+  accountDataMain : any[];
 
   constructor(
     private DataService : DataService,
@@ -33,6 +34,9 @@ export class AccountsComponent implements OnInit {
         this.accountTypeList = DataService.accounts.accountTypeList;
         this.status = DataService.accounts.status;
         this.dialogFields = DataService.accounts.dialogFields;
+
+
+        this.accountDataMain = this.accountData;
       }
 
 
@@ -49,6 +53,34 @@ export class AccountsComponent implements OnInit {
     this.display = true;
   }
   
+  Click_Search(value : any){
+    this.accountData = this.accountDataMain
+  
+    if(this.selectedBranch.branchName != "All" && this.selectedBranch != 1){
+      this.accountData  = this.accountData.filter(account => account.branch === this.selectedBranch.branchName);
+   
+    }
+
+    
+    if(this.statusName.value != "All" && this.statusName != 1){
+      console.log(this.statusName.value);
+       this.accountData  = this.accountData.filter(account => account.accountData.status === this.statusName.value);
+    }
+    
+    
+    if(this.accountType.value != "All" && this.accountType != 1){
+      console.log(this.accountType);
+       this.accountData  = this.accountData.filter(account => account.accountData.accountType === this.accountType.value);
+    }
+  }
+
+  Click_Reset(){
+    this.accountData = this.accountDataMain
+    this.selectedBranch = 1;
+    this.statusName = 1
+    this.accountType = 1
+  }
+
   exportToExcel(): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.accountData);
     const workbook: XLSX.WorkBook = {

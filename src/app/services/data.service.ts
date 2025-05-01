@@ -20,6 +20,7 @@ export class DataService {
    
     this.global = {
       branches : [
+        { branchId: 'All', branchName: 'All', location: 'All', region: 'All' },
         { branchId: 'BR001', branchName: 'Mumbai Main Branch', location: 'Mumbai', region: 'Western' },
         { branchId: 'BR002', branchName: 'Delhi Branch', location: 'Delhi', region: 'Northern' },
         { branchId: 'BR003', branchName: 'Chennai Branch', location: 'Chennai', region: 'Southern' },
@@ -33,9 +34,10 @@ export class DataService {
 
     this.accounts = {
     accountTypeList : [
+      {name: "All" ,value: "All" },
       {name: "Savings" , value: "Savings" },
       {name: "Current" , value: "Current"},
-      {name: "Fixed Deposit" ,value: "Fixed Deposit" },
+     
     ],
 
     accountData :[
@@ -824,6 +826,7 @@ export class DataService {
     ],
 
     status : [
+      {name: "All" , value : "All"},
       {name: "Active" , value : "Active"},
       {name: "Closed", value : "Closed"},
       {name: "Frozen", value : "Frozen"},
