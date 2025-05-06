@@ -50,7 +50,8 @@
 
 <div class="col-12 mt-1">
 <div class="card">
-<p-table [value]="accountData" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
+<p-table [value]="accountData"  
+ [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
 <ng-template pTemplate="header" styleClass="p-datatable-striped" class="p-table-striped">
   <tr>
     <th></th>
@@ -94,7 +95,11 @@
     <td>₹{{ rowData.accountData.balance }}</td>
   </tr>
 </ng-template>
+<ng-template pTemplate="paginatorleft">
+  <span  style="font-size: larger; margin-left: 1rem; font-weight: 600;">{{ accountData.length }} Logs</span>
+</ng-template>
 </p-table>
+
 </div>
 </div>
 

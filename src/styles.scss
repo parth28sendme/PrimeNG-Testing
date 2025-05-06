@@ -134,6 +134,9 @@ label.form-label {
     padding: 0 !important;
     text-align: center; /* optional if you want text centered too */
   }
+  ::ng-deep .p-paginator {
+    justify-content: center !important;
+  }
   
   
   .p-datatable .p-datatable-thead > tr > th {
