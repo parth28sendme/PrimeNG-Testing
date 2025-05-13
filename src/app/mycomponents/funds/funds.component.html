@@ -7,19 +7,21 @@
 <div class="row">
   <div class="col-12 mb-4">
       <div class="filters-container">      
-          <p-dropdown class="filters" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City"
-            [filter]="true">
-          </p-dropdown>
-  
-          <p-multiSelect class="filters" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities"
-          display="chip" [filter]="true">
-        </p-multiSelect>
 
-        <button class="btn btn-success btn-light-success waves-effect waves-light">
+      <p-dropdown  [options]="riskList" [(ngModel)]="risk" optionLabel="name" placeholder="Select Fund Risk Level"
+      [filter]="true">
+      </p-dropdown>
+
+        <div *ngIf="FundType">
+          <input id="accountNumber" type="text" placeholder="Search For Fund ID" [(ngModel)]="Fundname" class="form-control" />
+        </div>
+
+
+        <button class="btn btn-success btn-light-success waves-effect waves-light" (click)="Click_Search($event)">
           <i class="pi pi-search" style="font-size: 0.8rem"></i>
         </button>
 
-        <button class="btn btn-secondary waves-effect ml-1">
+        <button class="btn btn-secondary waves-effect ml-1" (click)="Click_Reset()">
           <i class="pi pi-replay" style="font-size: 0.8rem"></i>
         </button>
       </div>
@@ -34,9 +36,6 @@
       <div class="p-card-header d-flex align-items-center">
         <h5 class="p-card-title mb-2">
           Bonds
-          <i class="fas fa-info-circle" style="font-size: 0.75rem;" pInputText pTooltip="List of Custom Affinity."
-            tooltipPosition="top">
-          </i>
             </h5>
           </div>
           
@@ -65,8 +64,9 @@
           <div class="d-flex w-100">
             <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;">
               <button type="button"
+                      (click)="displayData(item.id ,item.fund)"
                       pButton
-                      icon="pi pi-copy"
+                      icon="pi pi-eye"
                       class="btn btn-primary btn-sm" style="margin-right: 1rem ;"></button> 
               {{item.fundName}}
             </div>
@@ -87,9 +87,6 @@
           <div class="p-card-header d-flex align-items-center">
             <h5 class="p-card-title mb-2">
               Mutual Funds
-              <i class="fas fa-info-circle" style="font-size: 0.75rem;" pInputText pTooltip="List of Custom Affinity."
-                tooltipPosition="top">
-              </i>
                 </h5>
               </div>
               
@@ -118,8 +115,9 @@
               <div class="d-flex w-100">
                 <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;">
                   <button type="button"
+                          (click)="displayData(item.id , item.fund)"
                           pButton
-                          icon="pi pi-copy"
+                          icon="pi pi-eye"
                           class="btn btn-primary btn-sm" style="margin-right: 1rem ;"></button> 
                   {{item.fundName}}
                 </div>
@@ -141,9 +139,6 @@
               <div class="p-card-header d-flex align-items-center">
                 <h5 class="p-card-title mb-2">
                   SIP Funds
-                  <i class="fas fa-info-circle" style="font-size: 0.75rem;" pInputText pTooltip="List of Custom Affinity."
-                    tooltipPosition="top">
-                  </i>
                     </h5>
                   </div>
                   
@@ -173,8 +168,9 @@
                   <div class="d-flex w-100">
                     <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;">
                       <button type="button"
+                              (click)="displayData(item.id , item.fund)"
                               pButton
-                              icon="pi pi-copy"
+                              icon="pi pi-eye"
                               class="btn btn-primary btn-sm" style="margin-right: 1rem ;"></button> 
                       {{item.fundName}}
                     </div>
@@ -189,11 +185,104 @@
                   </div>
                 </div>
               </div>
-        
-
-
       
       </div>
+
+
+      <p-dialog 
+            header="Fund Details/ ID : {{selectedFund.id}}"  
+            [(visible)]="display" 
+            [modal]="true" 
+            [style]="{width: '55vw', height : '80vw' }"   
+            [breakpoints]="{'960px': '95vw'}"
+            [closable]="true"
+      >
+
+      <div class="col-12  mb-3">
+        <h5>Fund Name : <span style="color: #0d1763;font-weight: 700">{{selectedFund.fundName}}</span></h5> 
+        <h5>Fund Manager : <span style="color: #0d1763;font-weight: 700">{{selectedFund.fundManager}}</span></h5>   
+      </div>
+         
+      <div class="col-md-12 p-card">
+        <div class="row">
+      <div class="col-8 mt-4 ">
+ <!--       <h5 style="text-align: center; font-weight: 600;">Recent Growth</h5>-->
+          <p-chart 
+            type="line" [data]="lineChartData"   [options]="lineChartOptions">
+          </p-chart>
+      
+      </div>
+      <div class="col-4 mt-5 pr-2">
+
+        <div  class="col-12 px-3">
+          <div class="p-card">
+          <div class="p-card-body box-style mt-3">
+           <h5 style="color: #001845; text-align: center; font-weight: 700;">OverallGrowth : 
+             <span style="font-weight: 500;"> {{selectedFund.overallGrowth}}%</span></h5>
+          </div>
+          </div>       
+      </div>
+
+      <div  class="col-12 px-3">
+        <div class="p-card">
+        <div class="p-card-body box-style mt-3">
+          <h5 style="color: #001845; text-align: center; font-weight: 700;">AUM : 
+            <span style="font-weight: 500;"> {{selectedFund.aum}}</span></h5>
+        </div>
+        </div>       
+    </div>
+
+    <div  class="col-12 px-3">
+      <div class="p-card">
+      <div class="p-card-body box-style mt-3">
+        <h5 style="color: #001845; text-align: center; font-weight: 700;">LaunchDate : 
+          <span style="font-weight: 500;"> {{selectedFund.launchDate}}</span></h5>
+      </div>
+      </div>       
+  </div>
+
+
+      </div>
+    </div>
+      </div>
+
+      <div class="col-md-12 p-card">
+        <div class="row">
+          <div class="col-4 mt-5 pr-2">
+
+            <div  class="col-12 px-3">
+              <div class="p-card">
+              <div class="p-card-body box-style mt-3">
+               <h5 style="color: #001845; text-align: center; font-weight: 700;">Risk Profile : 
+                 <span style="font-weight: 500;"> {{selectedFund.riskProfile}}%</span></h5>
+              </div>
+              </div>       
+          </div>
+    
+          <div  class="col-12 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <h5 style="color: #001845; text-align: center; font-weight: 700;">Fund Type : 
+                <span style="font-weight: 500;"> {{selectedFund.fundType}}</span></h5>
+            </div>
+            </div>       
+        </div>
+    
+          </div>
+      <div class="col-8 mt-4 ">
+ <!--       <h5 style="text-align: center; font-weight: 600;">Recent Growth</h5>-->
+        <p-chart 
+        type="bar" [data]="barChartData" [options]="barChartOptions" styleClass="w-full" style="height:400px;">
+        </p-chart>
+      </div>
+
+    </div>
+      </div>
+
+   
+   
+  
+    </p-dialog>
 
 
 

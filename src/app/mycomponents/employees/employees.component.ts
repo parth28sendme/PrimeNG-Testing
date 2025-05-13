@@ -18,10 +18,13 @@ export class EmployeesComponent implements OnInit {
   deleteDisplay: boolean = false
   display : boolean = false;
   selectedBranch : any = 1;
+  selectedTab : any = 0;
   accountNumber : any;
+  blockbutton : any;
+  cards1 = ['Card 1', 'Card 2', 'Card 2', 'Card 2', 'Card 2', 'Card 2', 'Card 2',];
   cityTabs = [
-    { label: 'Employees', value: 1 },
-    { label: 'Blocked Employees', value: 2 }
+    { label: 'Employees', value: 0 },
+    { label: 'Blocked Employees', value: 1 }
   ];
 
 
@@ -42,6 +45,7 @@ export class EmployeesComponent implements OnInit {
 onTabChange(value :any){
   console.log(value);
   this.block = value.index
+  console.log("block " , this.block);
 }
 
 Click_Search(value : any){
@@ -51,7 +55,7 @@ Click_Search(value : any){
     this.employeesData  = this.employeesData.filter(account => account.branch === this.selectedBranch.branchName);
   }
 
-  if(this.search != null){
+  if(this.search != null || this.search != ""){
     console.log(this.search);
     this.employeesData  = this.employeesData.filter(account => account.name.toLowerCase().includes(this.search.toLowerCase()) );
   }
@@ -69,8 +73,11 @@ employeeDetails(value : string){
   const employee = this.employeesData.filter(account => account.employeeId === value);
   
   this.selectedEmployee = employee[0]  
-  
-   this.display = true;
+
+  if (this.selectedEmployee) {
+    this.blockbutton = this.selectedEmployee.blocked ? "Unblock" : "Block";
+    this.display = true;
+  }
 }
 
 employeeBlock(value : string){
@@ -78,6 +85,8 @@ employeeBlock(value : string){
  const employeeIndex  = this.employeesData.findIndex((account) => account.employeeId === value );
  this.selectedEmployee = this.employeesData[employeeIndex];
  this.blockemployeeIndex = employeeIndex;
+ 
+
 }
 
 
@@ -89,6 +98,11 @@ delete(){
      }else{
     this.employeesData[this.blockemployeeIndex].blocked = false
      }
+     this.blockbutton = this.blockbutton == "Unblock" ? "Block" : "Unblock";
+
+    this.display = false;
 }
+
+
 
 }

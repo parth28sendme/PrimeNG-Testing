@@ -1,6 +1,487 @@
-<div class="col-12">
-    <div class="title py-2">
-       <h4>Cards</h4>
+<div class="content-page" >
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-title-box">
+            <h5 class="text-primary">
+              <ol class="breadcrumb m-0 p-0 pt-0">
+                <li class="breadcrumb-item mr-2 d-flex justify-content-between w-100" style="font-size: 1.7rem; font-weight: 600;">
+                <div> <!-- Top Left Button Switch -->
+                  Bot Detection
+                    <i class="pi pi-info-circle ml-1" style="color: #2F80ED; font-size: 1.2rem;"></i>
+                   <div class="d-inline-flex border overflow-hidden ml-3 mb-1" style="border-radius: 7px;">
+                  <!-- Insights Button -->
+                  <button class="btn px-4 py-2 border-0 fw-semibold" (click)="InsightsChange(1)"
+                  [ngStyle]="selectedInsights ? { backgroundColor: '#2F80ED', color: 'white', borderRadius: '7px 0 0 7px'  } :  { backgroundColor: 'white', color: '#4B5563', borderRadius: '10px 0 0 10px' }">
+                      Insights
+                  </button>
+
+                  <!-- Recent Activity Button -->
+                  <button class="btn px-4 py-2 border-0 fw-semibold " (click)="InsightsChange(0)"
+                  [ngStyle]="!selectedInsights ? { backgroundColor: '#2F80ED', color: 'white', } :  { backgroundColor: 'white', color: '#4B5563', } ">
+                      Recent Activity
+                  </button>
+                  </div>
+                </div>
+
+                <div> <!-- Top Right Button Switch -->
+                   <div class="d-inline-flex  overflow-hidden ml-3 mb-1" >
+                  
+                  <!-- Setup Botstop Button -->
+                  <button class="btn px-4 py-2  fw-semibold" (click)="TutorialChange(1)"
+                   [ngStyle]="selectedTutorial ? { backgroundColor: '#2F80ED', color: 'white', borderRadius: '7px 7px 7px 7px' } :  { backgroundColor: 'white', color: '#2F80ED',} ">
+                  <span class="mr-3 mt-3" style="font-size: 1rem;"><i class="fas fa-play-circle"></i></span>  Watch Tutorial
+                  </button>
+
+                  <!-- Watch Tutorial Button -->
+                  <button class="btn px-4 py-1 border-0 fw-semibold " (click)="TutorialChange(0)"
+                   [ngStyle]="!selectedTutorial  ? { backgroundColor: '#2F80ED', color: 'white', borderRadius: '7px 7px 7px 7px'  } :  { backgroundColor: 'white', color: '#4B5563' }">
+                   <span class="mr-1 mt-3"><i class="pi pi-cog"></i></span> Setup BotStop  
+                  </button>
+                  
+         
+            
+                  </div>
+                </div>
+
+                </li>
+              </ol>
+            </h5>
+          </div>
+        </div>
+
+      <div class="col-md-12 mt-2">
+    <!--      <div class="px-2 py-2 mb-2 text-nowrap"
+          style="font-size: 13px; background-color: #e9f7fe; border-left: 4px solid #17a2b8; border-radius: 6px; color: #0c5460; width: max-content;">
+          Updated every <b>30 minutes to 1 hour</b> to ensure real-time monitoring.</div> -->
+          <div class="row">
+            <div class="col-md-12">
+              <nav class="navbar p-0 advancedSearch">
+                <ul class="nav nav-pills">
+                  <li class="nav-item-advancedSearch">
+                   <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2050"
+                      [(ngModel)]="_SelectedDate" [dateFormat]="'mm/dd/yy'" [placeholder]="'Select Date'"
+                      class="w-100" [showButtonBar]="true" selectionMode="range" appendTo="body"></p-calendar>
+                  </li>
+                  @if(RoleId != _RoleType.Networks){
+                  @if(RoleId == _RoleType.NetworksMainManagers
+                  || RoleId == _RoleType.NetworksSubManagers
+                  || RoleId == _RoleType.TrafficSourcesManagers
+                  ){
+                  <li class="nav-item-advancedSearch">
+                    <p-multiSelect [options]="__NetworkGroups" [(ngModel)]="_SelectedNetworkGroup" class="mr-2"
+                      [resetFilterOnHide]="true" (onChange)="ChangeNetworkGroup()"
+                      [placeholder]="'Network Groups: All'">
+                    </p-multiSelect>
+
+                  </li>}
+                  <li class="nav-item-advancedSearch">
+                    <p-multiSelect [options]="RoleId == _RoleType.NetworksGroups ? __NetworkGroups :__Networks" [(ngModel)]="_SelectedNetwork" [resetFilterOnHide]="true"
+                      class="mr-2" [placeholder]="'Networks: All'">
+                    </p-multiSelect>
+                  </li>
+                  }
+                  <div class="nowraped-buttons-container">
+                    <li class="nav-item-advancedSearch">
+                      <button type="button" id="btnSearch" class="btn waves-effect waves-light applyButton"
+                        (click)="btnSearch_Click()">
+                        Apply
+                      </button>
+                    </li>
+                    <li class="nav-item-advancedSearch">
+                      <button type="reset" class="reset-button" (click)="btnReset_Click()">
+                        <i class="pi pi-refresh mr-1" style="font-size: small;"></i>
+                        <span class="reset-text">Reset All</span>
+                      </button>
+                    </li>
+                  </div>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 px-2" style="height: 65px;">
+          <div class="p-card w-100 h-100 d-flex align-items-center pl-4" style="background-color: #F5F9FF; border: solid 1px #2F80ED">
+            <span  style="font-size: 2rem; color: #2F80ED;font-weight: 500">$ </span> 
+            <p class="mt-3 ml-3" style="font-size: 1rem;">Your Total savings since you started Botstop are </p>
+            <span class="ml-2" style="font-size: 2rem;color: #2F80ED;font-weight: 500;" >$25260</span>
+          </div>
+        </div>
+
+      <div class="col-md-12 px-2 mt-4">
+            <div class="p-card px-2 pb-3" style="border-radius: 15px ;">
+                <div class="d-flex justify-content-between mt-2">
+                    <div>
+                        <h3 class="ml-2" style="font-weight: 650;">Activity</h3>
+                        <p class="ml-2" style="font-size: large;">Click on a Legend to see its Data</p>
+                    </div>
+                    <div>
+                        <div class="px-2 py-2 text-nowrap" 
+               style="font-size: 13px;  border-left: 4px solid; width: max-content;background-color: #FFF4ED; color: #FA6400;">
+                        Updated every <b>30 minutes to 1 hour</b> to ensure real-time monitoring.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+           
+            <div class="col-md-3 d-flex flex-column">
+            <div class="flex-fill p-2" style="cursor: pointer;"> 
+                <div class="p-card w-100 h-100 d-flex justify-content-between align-items-center px-3 pt-2"(click)="ColourTheme(1)"  
+            [ngStyle]="selectedId == 1 ? {backgroundColor: selectedBackgroudColour , border: selectedBorder} : null">
+                <div class="d-flex">
+                <div class="mr-3 mt-2"style="width: 16px; height: 4px; border-radius: 2px; background-color: #FA6400"></div>
+                <p style="font-size: 1rem;" >Malicious</p>
+               </div>    
+                    <div class="d-flex">
+                        <p style="font-size: 1rem; font-weight: 700; color: #FA6400;" >{{ __TotalCounts?.Malicious ?? 0 }}</p>
+                        <p class="ml-1" style="font-size: smaller; font-weight: 400;">{{ percentages?.Malicious }} % of Total</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-fill p-2" style="cursor: pointer;">
+                <div class="p-card w-100 h-100 d-flex justify-content-between align-items-center px-3 pt-2"
+                (click)="ColourTheme(2)"    [ngStyle]="selectedId == 2 ? {backgroundColor: selectedBackgroudColour , border: selectedBorder} : null">
+                 <div class="d-flex">
+                <div class="mr-3 mt-2"style="width: 16px; height: 4px; border-radius: 2px; background-color: #28C76F"></div>
+                <p style="font-size: 1rem;" >Friendly</p>
+               </div>    
+                    <div class="d-flex">
+                        <p style="font-size: 1rem; font-weight: 700; color: #28C76F;" >{{ __TotalCounts?.Friendly ?? 0 }}</p>
+                        <p class="ml-1" style="font-size: smaller; font-weight: 400;">{{ percentages?.Friendly }} % of Total</p>
+                    </div>
+                </div>
+            </div>                
+            <div class="flex-fill p-2" style="cursor: pointer;">
+                <div class="p-card w-100 h-100 d-flex justify-content-between align-items-center px-3 pt-2"
+                (click)="ColourTheme(3)"    [ngStyle]="selectedId == 3 ? {backgroundColor: selectedBackgroudColour , border: selectedBorder} : null">
+                <div class="d-flex">
+                <div class="mr-3 mt-2"style="width: 16px; height: 4px; border-radius: 2px; background-color: #A855F7"></div>
+                <p style="font-size: 1rem;" >Human</p>
+               </div>    
+                    <div class="d-flex">
+                        <p style="font-size: 1rem; font-weight: 700; color: #A855F7;" >{{ __TotalCounts?.Human?? 0}}</p>
+                        <p class="ml-1" style="font-size: smaller; font-weight: 400;">{{ percentages?.Human }} % of Total</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-fill p-2" style="cursor: pointer;">
+                <div class="p-card w-100 h-100 d-flex justify-content-between align-items-center px-3 pt-2"
+                (click)="ColourTheme(4)"    [ngStyle]="selectedId == 4 ? {backgroundColor: selectedBackgroudColour , border: selectedBorder} : null">
+                  <div class="d-flex">
+                <div class="mr-3 mt-2"style="width: 16px; height: 4px; border-radius: 2px; background-color: #2F80ED"></div>
+                <p style="font-size: 1rem;" >Total</p>
+               </div>    
+                    <div class="d-flex">
+                        <p style="font-size: 1rem; font-weight: 700; color: #2F80ED;" >{{ __TotalCounts?.total ?? 0 }}</p>
+                        <p class="ml-1" style="font-size: smaller; font-weight: 400;">{{percentages?.total}} % of Total</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+                  <div class="col-md-9 pb-2 px-3">
+                   <div class="p-card p-2" >
+                    <div class="mb-2">
+                        <h4 class="fw-bold" style="font-weight: 600;" [ngStyle]="{ color: selectedColour }" >{{selectedHeading}} Activity</h4>
+                        <p style="font-size: 1rem;">1300 <span style="font-size: 0.7rem;" class="text-muted"> +0.7% from last check (Static)</span></p>
+                     </div>
+                    <div>
+                      <div *ngIf="IsLoading" class="spinner"></div>
+                      <p-chart
+                      *ngIf="!IsLoading && __FinalChartCounts?.data?.datasets?.length > 0"
+                       type="line" [data]="__FinalChartCounts.data" [options]="__FinalChartCounts.options" styleClass="w-80" height="280px"></p-chart>
+                     </div>
+                   </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="d-inline-flex border overflow-hidden ml-2 mt-5" style="border-radius: 7px;">
+            <!-- Active Button -->
+            <button class="btn px-4 py-2 border-0 fw-semibold" (click)="tableChange('Activity')"
+            [ngStyle]="selectedTable == 'Activity' ? { backgroundColor: '#2F80ED', color: 'white', borderRadius: '7px 0 0 7px'  } :  { backgroundColor: 'white', color: '#4B5563', borderRadius: '10px 0 0 10px' }">
+                {{selectedHeading}} Activity
+            </button>
+
+            <!-- Inactive Button -->
+            <button class="btn px-4 py-2 border-0 fw-semibold " (click)="tableChange('Exclusives')"
+            [ngStyle]="selectedTable == 'Exclusives' ? { backgroundColor: '#2F80ED', color: 'white', } :  { backgroundColor: 'white', color: '#4B5563', } ">
+                Exclusions
+            </button>
+            </div>
+
+
+      <div class="col-md-12 px-2 mt-2">
+       <div class="card  p-3" style="border: solid 2px ; border-radius: 15px;" [ngStyle]="{borderColor : selectedBorderColour}">
+
+       
+         <!-- Activity Table -->
+          <ng-container *ngIf="selectedTable == 'Activity'">
+              <h4 class="fw-bold mb-3" style="font-weight: 600;"  [ngStyle]="{color : selectedColour}" >{{selectedHeading}} Activity</h4>
+        
+            <p-table #dt [value]="__BotVisitsData" dataKey="id" [rowHover]="true" [rows]="10"
+              [rowsPerPageOptions]="[10,30,50]" columnResizeMode="expand" [loading]="IsLoading" [scrollable]="true"
+              scrollHeight="500px" [resizableColumns]="true" [rowHover]="true" [tableStyle]="{'min-width': '50rem'}"
+              [showCurrentPageReport]="true" styleClass="p-datatable-striped" [paginator]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+
+              <!-- Table Header -->
+              <ng-template pTemplate="header">
+                <tr class="text-center text-nowrap">
+  
+                  <th style="text-align: start;" pSortableColumn="bot.type">
+                    <div class="flex justify-content-between pl-3">Bot</div>
+                  </th>
+        <!--          <th pSortableColumn="ip">
+                    <div class="flex justify-content-between">IP Address</div>
+                  </th> -->
+                  <th style="text-align: start;"  pSortableColumn="url">
+                    <div class="flex justify-content-between">Website</div>
+                  </th>
+                  <th pSortableColumn="requestId">
+                    <div class="flex justify-content-between">Time</div>
+                  </th>
+                  <th pSortableColumn="time">
+                    <div class="flex justify-content-between">Date</div>
+                  </th>
+                  <th pSortableColumn="bot.result">
+                    <div class="flex justify-content-between">Type</div>
+                  </th>
+                </tr>
+
+                <!-- Filter Row 
+                <tr class="text-center text-nowrap">
+                  <th>
+                    <input type="text" pInputText size="50"
+                      (input)="dt.filter($event.target.value, 'bot.type', 'contains')">
+                  </th>
+                  <th>
+                    <input type="text" pInputText size="50" (input)="dt.filter($event.target.value, 'ip', 'contains')">
+                  </th> 
+                  <th>
+                    <input type="text" pInputText size="50" (input)="dt.filter($event.target.value, 'url', 'contains')">
+                  </th>
+                  <th>
+                    <input type="text" pInputText size="50"
+                      (input)="dt.filter($event.target.value, 'requestId', 'contains')">
+                  </th>
+                  <th>
+                    <input type="text" pInputText size="50"
+                      (input)="dt.filter($event.target.value, 'time', 'contains')">
+                  </th>
+                  <th>
+                    <input type="text" pInputText size="50"
+                      (input)="dt.filter($event.target.value, 'bot.result', 'contains')">
+                  </th>
+                </tr> -->
+              </ng-template>
+
+              <!-- Table Body -->
+              <ng-template pTemplate="body" let-data>
+                <tr class="p-selectable-row">
+        
+                  <td style="text-align: start; max-width: 12vh;" > <i class="pi pi-info-circle mr-2" (click)="ViewDetails(data)"  
+                    style="color: #2F80ED; font-size: 1.2rem;"></i>{{ data.bot?.type }}</td>
+
+              <!--   <td>{{ data.ip }}</td> --> 
+                  <td style="text-align: start; max-width: 16vh;" >
+                    <a [href]="data.url" target="_blank" class="text-decoration-none">
+                      <i class="bi bi-link-45deg text-info"></i> {{ data.url }}
+                    </a>
+                  </td>
+                  <td>{{ data.time |date: 'HH:mm' }}</td>
+                  <td>{{ data.time  | date: 'yyyy-MM-dd' }}</td>
+                <td>
+                  <span
+                    [ngStyle]="getStatusStyle(data.bot?.result)"
+                    style="padding: 4px 12px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+                    {{ data.bot?.result || 'N/A' }}
+                  </span>
+                </td>
+
+                </tr>
+              </ng-template>
+
+              <!-- Empty Message -->
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="7">No records found.</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="paginatorleft" let-state>
+                <h5 class="pl-1">{{state.totalRecords}} Logs</h5>
+              </ng-template>
+
+            </p-table>
+            </ng-container>
+
+
+          <ng-container *ngIf="selectedTable == 'Exclusives'">
+
+        <div class="d-inline-flex  overflow-hidden mb-3">
+                <!-- Google Ads -->
+                <button class="btn border px-3 py-2 d-flex align-items-center" style="border-radius: 10px 0px 0px 10px;"
+                  [ngStyle]="selectedPlatform === 'google' 
+                    ? { backgroundColor: '#2F80ED', color: 'white' } 
+                    : { backgroundColor: 'white' }"
+                  (click)="selectPlatform('google')">
+                  <img src="assets/icons/Adwords-Icon.svg" width="20" height="18"
+                      [style.filter]="selectedPlatform === 'google' ? 'brightness(0) invert(1)' : 'none'" />
+                </button>
+
+                <!-- Meta -->
+                <button class="btn border px-3 py-2 d-flex align-items-center"
+                  [ngStyle]="selectedPlatform === 'meta' 
+                    ? { backgroundColor: '#2F80ED', color: 'white' } 
+                    : { backgroundColor: 'white' }"
+                  (click)="selectPlatform('meta')">
+                  <img src="assets/icons/Meta-Icon.svg" width="20" height="18"
+                      [style.filter]="selectedPlatform === 'meta' ? 'brightness(0) invert(1)' : 'none'" />
+                </button>
+
+                <!-- TikTok -->
+                <button class="btn border px-3 py-2 d-flex align-items-center" style="border-radius: 0px 10px 10px 0px;"
+                  [ngStyle]="selectedPlatform === 'tiktok' 
+                    ? { backgroundColor: '#2F80ED', color: 'white' } 
+                    : { backgroundColor: 'white' }"
+                  (click)="selectPlatform('tiktok')">
+                  <img src="assets/icons/Tiktok-Icon.svg" width="20" height="18"
+                      [style.filter]="selectedPlatform === 'tiktok' ? 'brightness(0) invert(1)' : 'none'" />
+                </button>
+
+                <h4 class="ml-3" style="font-weight: 650;"> {{ selectedPlatform === 'meta' ? 'Meta Audience' : selectedPlatform === 'google' ?  'Google Ads' : 'Tiktok'}}</h4>
+              </div>
+
+
+            <ng-container *ngIf="selectedPlatform == 'meta'">
+                <p-table #dts [value]="_FacebookList" dataKey="fbad_id" [rowHover]="true" [rows]="10"
+                  responsiveLayout="scroll" styleClass="p-datatable-striped" [scrollable]="true" scrollHeight="500px"
+                  [tableStyle]="{'min-width': '50rem'}" [showCurrentPageReport]="true" [loading]="ExclusiveLoading"
+                  [rowsPerPageOptions]="[10, 30, 50]" [paginator]="true"
+                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                  <ng-template pTemplate="header">
+                    <tr class="text-center text-nowrap">
+                      <th pSortableColumn="AdsName" [pSortableColumnDisabled]="false" class="text-nowrap overflow-hidden"
+                        style="min-width: 20rem">
+                        <div class="flex justify-content-between">
+                          Ad Name
+                        </div>
+                      </th>
+                      <th pSortableColumn="fbad_id" [pSortableColumnDisabled]="false" class="text-nowrap overflow-hidden"
+                        style="min-width: 20rem">
+                        <div class="flex justify-content-between">
+                          Ad ID
+                        </div>
+                      </th>
+                      <th pSortableColumn="Traffic" [pSortableColumnDisabled]="false" class="text-nowrap overflow-hidden"
+                        style="min-width: 20rem">
+                        <div class="flex justify-content-between">
+                          Clicks
+                        </div>
+                      </th>
+                      <th pSortableColumn="Bots" [pSortableColumnDisabled]="false" class="text-nowrap overflow-hidden"
+                        style="min-width: 20rem">
+                        <div class="flex justify-content-between">
+                          Bots
+                        </div>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-data let-expanded="expanded">
+                    <tr class="p-selectable-row">
+                      <td>
+                        {{ data.AdsName }}
+                      </td>
+                      <td>
+                        {{ data.fbad_id }}
+                      </td>
+                      <td>
+                        {{ data.Traffic }}
+                      </td>
+                      <td>
+                        {{ data.Bots }}
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage" let-state>
+                    <tr class="text-center align-middle">
+                      <td colspan="4">No records found.</td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="paginatorleft" let-state>
+                    <h5 class="pl-1">{{state.totalRecords}} Logs</h5>
+                  </ng-template>
+                </p-table>
+            </ng-container>
+
+            <ng-container *ngIf="selectedPlatform == 'google'">
+                <p-table #dt [value]="_GoogleList" dataKey="clientip" [rowHover]="true" [rows]="10"
+                  styleClass="p-datatable-striped" [scrollable]="true" scrollHeight="500px"
+                  [showCurrentPageReport]="true" [resizableColumns]="true" [loading]="ExclusiveLoading"
+                  [rowsPerPageOptions]="[15, 30, 60]" [paginator]="true"
+                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                  <ng-template pTemplate="header">
+                    <tr class="text-center text-nowrap">
+                      <th pSortableColumn="clientip" [pSortableColumnDisabled]="false"
+                        class="text-nowrap overflow-hidden" style="min-width: 20rem">
+                        <div class="flex justify-content-between">
+                          Recent IP
+                        </div>
+                      </th>
+                      <th pSortableColumn="country" [pSortableColumnDisabled]="false"
+                        class="text-nowrap overflow-hidden" style="min-width: 20rem">
+                        <div class="flex justify-content-between">
+                          Country
+                        </div>
+                      </th>
+                      <th pSortableColumn="Total" [pSortableColumnDisabled]="false" class="text-nowrap overflow-hidden"
+                        style="min-width: 20rem">
+                        <div class="flex justify-content-between">
+                          Counts
+                        </div>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-data let-expanded="expanded">
+                    <tr class="p-selectable-row">
+                      <td>
+                        {{ data.clientip }}
+                      </td>
+                      <td>
+                        <img src="assets/images/logos/flags/{{data.country?.toLowerCase()}}.png"
+                          style="width: 16px; height: 16px;" />
+                        {{ data.country }}
+                      </td>
+                      <td>
+                        {{ data.Total }}
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage" let-state>
+                    <tr class="text-center align-middle">
+                      <td colspan="3">No records found.</td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="paginatorleft" let-state>
+                    <h5 class="pl-1">{{state.totalRecords}} Logs</h5>
+                  </ng-template>
+                </p-table>
+            </ng-container>
+
+      
+
+             
+
+          </ng-container>  
+        </div>
+      </div>
+
+      </div>
     </div>
   </div>
-  
+</div>

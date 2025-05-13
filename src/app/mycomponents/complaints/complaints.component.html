@@ -11,15 +11,15 @@
             [filter]="true">
           </p-dropdown>
   
-          <p-multiSelect class="filters" [options]="supportTeamList" [(ngModel)]="supportTeam" optionLabel="name" placeholder=" Select Support Team"
-          display="chip" [filter]="true">
-        </p-multiSelect>
-
-        <button class="btn btn-success btn-light-success waves-effect waves-light">
+          <p-dropdown class="filters" [options]="supportTeamList" [(ngModel)]="supportTeam" optionLabel="name" placeholder="Select Priority"
+            [filter]="true">
+          </p-dropdown>
+          
+        <button class="btn btn-success btn-light-success waves-effect waves-light" (click)="Click_Search($event)">
           <i class="pi pi-search" style="font-size: 0.8rem"></i>
         </button>
 
-        <button class="btn btn-secondary waves-effect ml-1">
+        <button class="btn btn-secondary waves-effect ml-1" (click)="Click_Reset()">
           <i class="pi pi-replay" style="font-size: 0.8rem"></i>
         </button>
       </div>
@@ -39,7 +39,7 @@
             <div style="max-height: 500px; overflow-y: auto;">
               <ul class="list-group">
                 <!-- Header Row -->
-                <li class="list-group-item d-flex fw-bold"
+                <li class="list-group-item d-flex fw-bold "
                 style="position: sticky; top: 0; background-color: white; z-index: 1;">
               <div class="d-flex w-100">
                 <div class="text-end pr-3" style="width: 30%;">ComplaintID</div>
@@ -61,8 +61,9 @@
                   <div class="d-flex w-100">
                     <div class="text-center d-flex align-items-center justify-content-start" style="width: 30%;">
                       <button type="button"
+                             (click)="displayInfo(item.complaintId)"
                               pButton
-                              icon="pi pi-eye"
+                              icon="pi pi-pencil"
                               class="btn btn-primary btn-sm" style="margin-right: 0.8rem;"></button> 
                       {{item.complaintId}}
                     </div>
@@ -117,8 +118,9 @@
                       <div class="d-flex w-100">
                         <div class="text-center d-flex align-items-center justify-content-start" style="width: 30%;">
                           <button type="button"
+                                 (click)="displayInfo(item.complaintId)"
                                   pButton
-                                  icon="pi pi-eye"
+                                  icon="pi pi-pencil"
                                   class="btn btn-primary btn-sm" style="margin-right: 0.8rem;"></button> 
                           {{item.complaintId}}
                         </div>
@@ -173,8 +175,9 @@
                           <div class="d-flex w-100">
                             <div class="text-center d-flex align-items-center justify-content-start" style="width: 30%;">
                               <button type="button"
+                                     (click)="displayInfo(item.complaintId)"
                                       pButton
-                                      icon="pi pi-eye"
+                                      icon="pi pi-pencil"
                                       class="btn btn-primary btn-sm" style="margin-right: 0.8rem;"></button> 
                               {{item.complaintId}}
                             </div>
@@ -199,7 +202,48 @@
       </div>
 
 
+      <p-dialog 
+      header="Complaint Details "  
+      [(visible)]="display" 
+      [modal]="true" 
+      [style]="{width: '50vw' }"   
+      [breakpoints]="{'960px': '95vw'}"
+      [closable]="true"
+      
+      >
+      <ng-container *ngIf="selectedComplaint">
+        <button type="button"
+       (click)="statusChange('Pending',selectedComplaint.complaintId)"  pButton
+        class="btn " [ngStyle]="{ 'background-color': selectedComplaintStatus === 'Pending' ? 'red' : '#0d1763','color': 'white'}"
+        style="margin-right: 0.1rem;">Pending</button> 
 
+       <button type="button"
+       (click)="statusChange('Under Investigation',selectedComplaint.complaintId)"  pButton
+        class="btn " [ngStyle]="{ 'background-color': selectedComplaintStatus === 'Under Investigation' ? 'red' : 'black','color': 'white'}"
+        style="margin-right: 0.1rem;">Under Investigation</button> 
+
+        <button type="button"
+        (click)="statusChange('Resolved',selectedComplaint.complaintId)" pButton
+        class="btn " [ngStyle]="{ 'background-color': selectedComplaintStatus === 'Resolved' ? 'red' : '#0d1763','color': 'white'}"
+        style="margin-right: 0.1rem;">Resolved</button> 
+
+        <h5>complaintId : {{selectedComplaint.complaintId}}</h5>
+        <h5>customerName :{{selectedComplaint.customerName}}</h5>
+        <h5>complaintType :{{selectedComplaint.complaintType}}</h5>
+        <h5>complaintDescription :{{selectedComplaint.complaintDescription}}</h5>
+        <h5>complaintDate :{{selectedComplaint.complaintDate}}</h5>
+        <h5>resolutionDetails :{{selectedComplaint.resolutionDetails}}</h5>
+        <h5>resolutionDate :{{selectedComplaint.resolutionDate}}</h5>
+        <h5>assignedTo :{{selectedComplaint.assignedTo}}</h5>
+        <h5>priority :{{selectedComplaint.priority}}</h5>
+        <h5>followUpDate :{{selectedComplaint.followUpDate}}</h5>
+
+
+
+
+
+        </ng-container>
+    </p-dialog>
 
 
 

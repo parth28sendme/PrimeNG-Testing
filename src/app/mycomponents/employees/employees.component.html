@@ -28,7 +28,7 @@
 
 
 <p-tabView (onChange)="onTabChange($event)"
-[(activeIndex)]="selectedBranch">
+[(activeIndex)]="selectedTab">
   <p-tabPanel *ngFor="let city of cityTabs" [header]="city.label"  >
  </p-tabPanel>
   </p-tabView>
@@ -37,7 +37,7 @@
   <div class="d-flex justify-content-around flex-wrap">
   
     <ng-container *ngFor="let item of employeesData">
-    <div *ngIf="block==1 ? item.blocked : !item.blocked"  class="p-card shadow rounded-3 p-4 mb-5" style="min-width :450px;;  max-width: 600px;">
+    <div *ngIf="block=== 1 ? item.blocked : !item.blocked"  class="p-card shadow rounded-3 p-4 mb-5" style="min-width :450px;;  max-width: 600px;">
       <div class="d-flex align-items-center mb-3">
         
         <!-- Avatar -->
@@ -70,33 +70,86 @@
 header="Employee Details "  
 [(visible)]="display" 
 [modal]="true" 
-[style]="{width: '55vw', height : '80vw' }"   
+[style]="{width: '50vw' }"   
 [breakpoints]="{'960px': '95vw'}"
 [closable]="true"
 
 >
+<div class="col-12 ml-5"> 
 
-<h5>{{selectedEmployee.employeeId}}</h5>
+<div class="d-flex ml-5 ">
 
-<h5>{{selectedEmployee.name}}</h5>
+  <div class="me-3 d-flex flex-column align-items-center col-5 px-5 mt-3 gap-5">
+    <div class=" profile " style="border: solid 5px; border-radius: 50%; padding: 15%;">
+      <i class="pi pi-user fs-1" style="font-size: 40vh; "></i>
+    </div>
+  
+    <h5>Employee ID : {{selectedEmployee.employeeId}}</h5>
+    
+    <button *ngIf="selectedEmployee" pButton type="button"  (click)="employeeBlock(selectedEmployee.employeeId)" 
+       class="p-button-outlined p-button-primary w-50 " 
+      style="border-color:  #0d1763 ; color:  #0d1763;padding-left: 2.7rem; padding-right: 1.5rem;">{{blockbutton}}</button>
+  </div>
 
-<h5>{{selectedEmployee.position}}</h5>
+  <div class="col-7 d-flex flex-column justify-content-center align-items-end ml-5 gap-2">
+   
+  <div class="col-12 px-3">
+    <div class="p-card">
+    <div class="p-card-body box-style mt-3">
+     <h5 style=" text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Name : 
+      <span style="font-weight: 700;color: #001845;"> {{selectedEmployee.name}}</span></h5>
+    </div>
+    </div>       
+</div>
+<div class="col-12 px-3">
+  <div class="p-card">
+  <div class="p-card-body box-style mt-3">
+    <h5 style=" text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Date of Joining : 
+      <span style="font-weight: 700;color: #001845;"> {{selectedEmployee.dateOfJoining}}</span></h5>
+  </div>
+  </div>       
+</div>    
+  <div class="col-12 px-3">
+  <div class="p-card">
+  <div class="p-card-body box-style mt-3">
+    <h5 style=" text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Department : 
+      <span style="font-weight: 700;color: #001845;"> {{selectedEmployee.department}}</span></h5>
+  </div>
+  </div>       
+</div> 
+ <div class="col-12 px-3">
+  <div class="p-card">
+  <div class="p-card-body box-style mt-3">
+    <h5 style=" text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Contact Number : 
+      <span style="font-weight: 700;color: #001845;"> {{selectedEmployee.contactNumber}}</span></h5>
+  </div>
+  </div>       
+</div>   
+ <div class="col-12 px-3">
+  <div class="p-card">
+  <div class="p-card-body box-style mt-3">
+    <h5 style=" text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Branch : 
+      <span style="font-weight: 700;color: #001845;"> {{selectedEmployee.branch}}</span></h5>
+  </div>
+  </div>       
+</div>
+<div class="col-12 px-3">
+  <div class="p-card">
+  <div class="p-card-body box-style mt-3">
+    <h5 style=" text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Email : 
+      <span style="font-weight: 700;color: #001845;"> {{selectedEmployee.email}}</span></h5>
+  </div>
+  </div>       
+</div>
+  </div>
 
-<h5>{{selectedEmployee.department}}</h5>
+ 
+  
+</div>
 
-<h5>{{selectedEmployee.dateOfJoining}}</h5>
 
-<h5>{{selectedEmployee.contactNumber}}</h5>
+</div>
 
-<h5>{{selectedEmployee.email}}</h5>
-
-<h5>{{selectedEmployee.branch}}</h5>
-
-<h5>{{selectedEmployee.employmentStatus}}</h5>
-
-<h5>{{selectedEmployee.salary}}</h5>
-
-<h5>{{selectedEmployee.blocked}}</h5>
 </p-dialog>
 
 
@@ -113,6 +166,6 @@ header="Delete Account"
   <p style="font-size: larger;">Employee Name : {{selectedEmployee.name}}<span style="font-weight: 600;"></span> </p>
 </div>
 <div class="d-flex gap-3 mt-3">
-  <button pButton (click)="deleteDisplay = false;"  type="button" label="Cancel" class="p-button-outlined p-button-primary w-50" style="border-color:  #0d1763 ; color:  #0d1763;"></button>
-  <button pButton (click)="delete()" type="button" [label]="block == 1 ? 'UnBlock' : 'Block'" class="p-button w-50 primary " ></button>
+  <button pButton (click)="deleteDisplay = false;"  type="button" label="No" class="p-button-outlined p-button-primary w-50" style="border-color:  #0d1763 ; color:  #0d1763;"></button>
+  <button pButton (click)="delete()" label = "Yes"  type="button"   class="p-button w-50 primary " ></button>
 </div>
