@@ -1,0 +1,607 @@
+<div class="content-page" >
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-title-box">
+            <h5 class="text-primary">
+              <ol class="breadcrumb m-0 p-0 pt-0">
+                <li class="breadcrumb-item w-100" style="font-size: 1.4rem; font-weight: 600;display: inline-flex;">
+                  
+                  <div class="">
+                   Performance Dashboard <i class="pi pi-info-circle" style="color: #2F80ED; font-size: 1.2rem;"
+                   pTooltip="View a comprehensive, high-level overview of your traffic's overall performance, traffic, 
+                   and key advertising metrics."
+                    tooltipPosition="top"></i>
+                  </div>
+
+                  <div class="flex-grow-1 d-flex justify-content-between h-100 " >
+                <!-- Top Left Button Switch -->
+                   <div class="d-inline-flex border overflow-hidden ml-3 " style="border-radius: 7px; height: 2.1rem; width: 12rem">
+                  <!-- Insights Button -->
+                  <button class="btn p-1 border-0 fw-semibold  h-100" (click)="InsightsChange(1)" style="width: 40%;"
+                  [ngStyle]="selectedgeneral ? { backgroundColor: '#2F80ED', color: 'white', borderRadius: '7px 0 0 7px'  } :  { backgroundColor: 'white', color: '#4B5563', borderRadius: '7px 0 0 7px' }">
+                      General
+                  </button>
+
+                  <!-- Recent Activity Button -->
+                  <button class="btn p-1 border-0 fw-semibold  h-100" (click)="InsightsChange(0)" style="width: 60%;"
+                  [ngStyle]="!selectedgeneral ? { backgroundColor: '#2F80ED', color: 'white', borderRadius: '0px 7px 7px 0px'  } :  { backgroundColor: 'white', color: '#4B5563', borderRadius: '0px 7px 7px 0px' }">
+                      Traffic
+                  </button>
+                  </div>
+  
+
+                <!-- Top Right Button Switch -->
+                   <div class="d-inline-flex overflow-hidden " style="border-radius: 7px; height: 1.98rem; width: 19rem">
+                  <!-- Insights Button -->
+                  <button class="btn p-1 border-0 fw-semibold w-40 h-110 mr-1" style="font-size: 0.7;"
+                  [ngStyle]="{ backgroundColor: 'white', color: '#2F80ED',} " (click)="TutorialChange(1)"> 
+                  <span class="mr-1 mt-3" style="font-size: 80%;"><i  class="fas fa-play-circle"></i></span>  Watch Tutorial
+                  </button>
+
+                  <!-- Recent Activity Button -->
+                <div class="px-1 py-2 small text-nowrap w-60" style="border-left: 4px solid #FA6400; background-color: #FFF4ED; color: #FA6400; border-radius: 5px;">
+                    Updated every <b>30 minutes</b> 
+                </div>
+              
+                  </div>
+                  </div>
+                </li>
+              </ol>
+            </h5>
+          </div>
+        </div>
+
+            <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-between">
+                <div>
+                <nav class="navbar p-0 advancedSearch">
+                    <ul class="nav nav-pills">
+                    <li class="nav-item-advancedSearch">
+                        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2050"
+                        [(ngModel)]="_selectedFromToDate" [dateFormat]="'mm/dd/yy'" [placeholder]="'Select Date'"
+                        class="w-100" [showButtonBar]="true" selectionMode="range" appendTo="body"></p-calendar>
+                    </li>
+                    <ng-container *ngIf="selectedgeneral">
+                    @if(RoleId != _RoleType.Networks){
+                    @if(RoleId == _RoleType.NetworksMainManagers
+                    || RoleId == _RoleType.NetworksSubManagers
+                    || RoleId == _RoleType.TrafficSourcesManagers
+                    ){
+                
+                    <li class="nav-item-advancedSearch">
+                        <p-multiSelect [options]="__NetworkGroups" [(ngModel)]="_SelectedNetworkGroup" class="mr-2"
+                        [resetFilterOnHide]="true" (onChange)="ChangeNetworkGroup()"
+                        [placeholder]="'Agency: All'">
+                        </p-multiSelect>
+
+                    </li>}
+                    <li class="nav-item-advancedSearch">
+                        <p-multiSelect [options]="RoleId == _RoleType.NetworksGroups ? __NetworkGroups :__Networks" [(ngModel)]="_SelectedNetwork" [resetFilterOnHide]="true"
+                        class="mr-2" [placeholder]="'Networks: All'">
+                        </p-multiSelect>
+                    </li>
+                    }
+                </ng-container>
+                
+                    <div class="nowraped-buttons-container">
+                        <li class="nav-item-advancedSearch">
+                        <button type="button" id="btnSearch" class="btn waves-effect waves-light applyButton"
+                            (click)="btnSearch_Click()">
+                            Apply
+                        </button>
+                        </li>
+                        <li class="nav-item-advancedSearch">
+                        <button type="reset" class="reset-button" (click)="btnReset_Click()">
+                            <i class="pi pi-refresh mr-1" style="font-size: small;"></i>
+                            <span class="reset-text">Reset All</span>
+                        </button>
+                        </li>
+                    </div>
+                    </ul>
+                </nav>
+                </div>
+              
+                <div>
+              <!--  <button class="btn mr-2 fw-semibold"
+                [ngStyle]="{ backgroundColor: 'white', color: '#2F80ED', borderRadius: '7px 7px 7px 7px', border : '1px solid #2F80ED'} ">
+                <span class="mt-3" style="font-size: 1rem;"><i class="pi pi-filter mr-2 "></i>Filter</span>
+                </button> -->
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+    <ng-container *ngIf="selectedgeneral" >
+
+        <div class="col-12">
+            <div  class="row">
+                <!--Left Boxes-->
+                <div class="col-6 d-flex flex-wrap">
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #F2FCFF;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #00B8D9; height: 100%;">
+                       <span style="font-size: 120%;"><i style="font-size: 100%;" class="pi pi-chart-line"></i></span> 
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Ad Clicks</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[0]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #F2FCFF;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #00B8D9; height: 100%;">
+                             <span style="font-size: 120%;"><i style="font-size: 100%;" class="pi pi-users">
+                             </i></span>      
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Average Visit/User</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[5]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #F2FCFF;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #00B8D9; height: 100%;">
+                             <span style="font-size: 120%;"><i style="font-size: 100%;" class="pi pi-check-circle"></i></span>  
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Valid Visitors</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[1]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #F2FCFF;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #00B8D9; height: 100%;">
+                             <span style="font-size: 120%;"><i  style="font-size: 100%;" class="pi pi-user">
+                             </i></span>
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Unique Visitors</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[3]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    
+
+                </div>
+                <!--Right Boxes-->
+                <div class="col-6 d-flex flex-wrap">
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #FFF5F5;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #FF4D4F; height: 100%;">
+                            <span style="font-size: 110%;"> <i  style="font-size: 100%;" class="pi pi-percentage">
+                            </i></span>
+                       
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Blocked Traffic</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[6]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #FFF5F5;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #FF4D4F; height: 100%;">
+                      <span style="font-size: 110%;"> <i  style="font-size: 100%;" class="pi pi-percentage">
+                      </i></span>
+                       
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Blocked Unique Traffic</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[7]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #FFF5F5;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #FF4D4F; height: 100%;">
+                             <span style="font-size: 120%;"> <i style="font-size: 100%;" class="pi pi-times">
+                             </i></span>
+                       
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Blocked Visitors</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[2]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #FFF5F5;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #FF4D4F; height: 100%;">
+                             <span style="font-size: 120%;"><i style="font-size: 100%;" class="pi pi-ban">
+                             </i></span>
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Blocked Unique Visitors</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{_BotsCounter[4]?.AdSclicks}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+          @if(isLoading){
+          @if (IsGraphDataFound) {
+            <!-- chart -->
+            <div class="col-md-4">
+              <div class="card card-body box-shadows">
+                <h4 style="font-weight: 600;">Bot Detection</h4>
+                  <p-chart type="bar" [data]="_RequestCostPercentage.data"
+                   styleClass="w-100" height="12rem"
+                    [options]="_RequestCostPercentage.options"></p-chart>
+             </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-body box-shadows">
+                <h4 style="font-weight: 600;">Bot IP Detection</h4>
+                  <p-chart type="line" styleClass="w-100"
+                    height="12rem" [data]="_DateWiseBots.data" [options]="_DateWiseBots.options"></p-chart>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-body box-shadows">
+                <h4 style="font-weight: 600;">Traffic IP Detection</h4>
+                  <p-chart type="line"  styleClass="w-100" height="12rem"
+                  [data]="_DateWiseTraffics.data" [options]="_DateWiseTraffics.options"></p-chart>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card card-body box-shadows">
+                <h4 style="font-weight: 600;">Fraud Type</h4>
+                  <!-- <app-Charts [chartConfig]="_FraudTypeWisePercentage"></app-Charts> -->
+                  <p-chart type="pie" [data]="_FraudTypeWisePercentage.data" styleClass="w-100" height="16rem"
+                    [options]="_FraudTypeWisePercentage.options"  />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-body box-shadows">
+                <h4 style="font-weight: 600;">Country</h4>
+                  <p-chart type="pie" [data]="_HostWiseData.data" [options]="_HostWiseData.options"
+                    class="w-full md:w-[30rem]" styleClass="w-100" height="16rem"/>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-body box-shadows">
+                <h4 style="font-weight: 600;">Source</h4>
+                  <p-chart type="pie" [data]="_CountryWiseData.data" [options]="_CountryWiseData.options"
+                    class="w-full md:w-[30rem]" styleClass="w-100" height="16rem" />
+              </div>
+            </div>
+          }
+          @else
+          {
+          <div class="w-100 d-flex justify-content-center align-items-center" style="margin-top: 20%;">
+            <span>No Data Found</span>
+          </div>
+          }
+
+          }
+          @else{
+          <div class="w-100 d-flex justify-content-center align-items-center" style="margin-top: 35%;">
+            <div class="spinner"></div>
+          </div>
+          }
+
+    </ng-container>
+
+    <ng-container *ngIf="!selectedgeneral">
+        <div class="col-12">
+            <div  class="row">
+                <!-- Boxes-->
+                <div class="col-12 d-flex flex-wrap">   
+             
+                    <div class="col-md-3 p-2" style="height: 6rem;">
+                        <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                            style="border-radius: 0.7rem; background-color: #f9f4ff;">
+                            
+                            <!-- Icon Section -->
+                            <div class="d-flex align-items-center justify-content-center" 
+                                style="font-size: 1.5rem; color: #c17ff5; height: 100%;">
+                        <span style="font-size: 120%;"><i style="font-size: 100%;" class="pi pi-chart-bar"></i></span> 
+                            </div>
+
+                            <!-- Text Content -->
+                            <div class="ml-3">
+                            <div style="font-size: 100%; color: #7F8C99;">Usage</div>
+                            <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{ Usage ?? 0 }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #f4f8ff;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #4285f4; height: 100%;">
+                             <span style="font-size: 120%;"><i style="font-size: 100%;" class="pi pi-user">
+                             </i></span>      
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Unique Visitors</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{ UniqueVisitors ?? 0}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #f7f7fe;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #6b75f6; height: 100%;">
+                             <span style="font-size: 120%;"><i style="font-size: 100%;" class="pi pi-calendar"></i></span>  
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Events per Visitor</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{EventPerVisitor ?? 0}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3 p-2" style="height: 6rem;">
+                    <div class="card w-100 h-100 d-flex flex-row align-items-center px-3"
+                        style="border-radius: 0.7rem; background-color: #F2FCFF;">
+                        
+                        <!-- Icon Section -->
+                        <div class="d-flex align-items-center justify-content-center" 
+                            style="font-size: 1.5rem; color: #00B8D9; height: 100%;">
+                             <span style="font-size: 120%;"><i  style="font-size: 100%;" class="fas fa-code-branch">
+                             </i></span>
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="ml-3">
+                        <div style="font-size: 100%; color: #7F8C99;">Average RPS</div>
+                        <div style="font-size: 170%; font-weight: bold; color: #0D1A26;">{{AverageRPS ?? 0 |
+                        number:'1.4-4'}}</div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- Data Cards-->
+
+                    @if(!IsLoading){
+                    @if(IsDataAvailable){
+                    <div class="col-md-12 mb-4 mt-2">
+                    <div class="row">
+                        <div class="col-md-4">
+                        <div class="p-card border p-grid p-grid-responsive p-grid-responsive-md p-grid-responsive-lg"
+                          style="overflow: hidden; border-radius: 15px;">
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h5 class="mb-0" style="font-size: 1.3rem;margin-left: 1rem;margin-top: 1.3rem; font-weight: 600;"
+                            >Top Origin <i class="pi pi-info-circle" style="color: #2F80ED; font-size: 1rem;"
+                             pTooltip="Number of events per origin domain or mobile app." tooltipPosition="top"></i>
+                           </h5>
+
+                           <!-- <button class="btn mr-2 fw-semibold"
+                                style="margin-right: 1rem;margin-top: 1rem;"
+                                [ngStyle]="{ backgroundColor: 'white', color: '#2F80ED', borderRadius: '7px 7px 7px 7px', border : '1px solid #2F80ED'} ">
+                                <span class="mt-3" style="font-size: 1rem;">
+                                    <i class="pi pi-filter mr-2 "></i>Filter</span>
+                            </button> -->
+                            </div>
+                            <div class="">
+                            <div style="max-height: 30rem;">
+                                <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center h6"
+                                    style=" top: 0; background-color: #f7faf9; z-index:1; padding-block: 1rem;
+                                     margin-bottom: 0rem;border: none;; font-weight: 600;">  DOMAIN
+                                    <span style="font-weight: 600;" class="mr-2">Events</span>
+                                </li>
+                                </ul>
+                                <ul class="list-group" style="max-height: 24.65rem; overflow-y: auto;">
+                                @for (item of DomainList; track $index) {
+                                <li class="list-group-item d-flex justify-content-between align-items-center"
+                                style="border-inline: none;">
+                                   {{ $index + 1 }} .&nbsp;  {{ item.domain.length > 25 ? (item.domain | slice:0:25) + '...' : item.domain }}
+                                    <span>{{ item.total_events }}</span>
+                                </li>
+                                }
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="p-card border p-grid p-grid-responsive p-grid-responsive-md p-grid-responsive-lg"
+                        style="overflow: hidden; border-radius: 15px;">
+                            <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"  style="font-size: 1.3rem;margin-left: 1rem;margin-top: 1.3rem;; font-weight: 600;"
+                            >Top Browsers <i class="pi pi-info-circle" style="color: #2F80ED; font-size: 1rem;"
+                             pTooltip="Number of events per specific browser." tooltipPosition="top"></i>
+                        </h5>
+
+                           <!--  <button class="btn mr-2 fw-semibold"
+                                style="margin-right: 1rem;margin-top: 1rem;"
+                                [ngStyle]="{ backgroundColor: 'white', color: '#2F80ED', borderRadius: '7px 7px 7px 7px', border : '1px solid #2F80ED'} ">
+                                <span class="mt-3" style="font-size: 1rem;">
+                                    <i class="pi pi-filter mr-2 "></i>Filter</span>
+                            </button> -->
+                            </div>
+                            <div class="">
+                            <div style="max-height: 30rem; ">
+                                <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center h6"
+                                    style=" top: 0; background-color: #f7faf9; z-index: 1;padding-block: 1rem;
+                                    margin-bottom: 0rem;border: none;; font-weight: 600;">BROWSER
+                                    <span style="font-weight: 600;" class="mr-2">Events</span>
+                                </li>
+                                </ul>
+                                <ul class="list-group" style="max-height: 24.65rem; overflow-y: auto;">
+                                @for (item of BrowserList; track $index) {
+                                <li class="list-group-item d-flex justify-content-between align-items-center"
+                                style="border-inline: none;">
+                                     {{ $index + 1 }} .&nbsp;  {{ item.browser }}
+                                    <span>{{ item.total_events }}</span>
+                                </li>
+                                }
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class=" p-card border p-grid p-grid-responsive p-grid-responsive-md p-grid-responsive-lg"
+                        style="overflow: hidden; border-radius: 15px;">
+                            <div class=" d-flex justify-content-between align-items-center">
+                            <h5 class=" mb-0"  style="font-size: 1.3rem;margin-left: 1rem;margin-top: 1.3rem;; font-weight: 600;"
+                            >Top Countries <i class="pi pi-info-circle" style="color: #2F80ED; font-size: 1rem;"
+                             pTooltip="Number of events per country." tooltipPosition="top"></i>
+                        </h5>
+
+                            <!-- <button class="btn mr-2 fw-semibold"
+                                style="margin-right: 1rem;margin-top: 1rem;"
+                                [ngStyle]="{ backgroundColor: 'white', color: '#2F80ED', borderRadius: '7px 7px 7px 7px', border : '1px solid #2F80ED'} ">
+                                <span class="mt-3" style="font-size: 1rem;">
+                                    <i class="pi pi-filter mr-2 "></i>Filter</span>
+                            </button> -->
+                            </div>
+                            <div class="">
+                            <div style="max-height: 30rem;">
+                                <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center h6 px-2"
+                                    style=" top: 0; background-color:  #f7faf9; z-index: 1; padding-block: 1rem;
+                                    margin-bottom: 0rem;border: none;; font-weight: 600;">COUNTRY
+                                    <span style="font-weight: 600;" class="mr-2">Events</span>
+                                </li>
+                                </ul>
+                                <ul class="list-group" style="max-height: 24.65rem; overflow-y: auto;">
+                                @for (item of CountriesList; track $index) {
+                                <li class="list-group-item d-flex justify-content-between align-items-center"
+                                style="border-inline: none;">
+                                  
+                                <span>
+                                     {{ $index + 1 }} .&nbsp;  
+                                    <img src="assets/images/logos/flags/{{item.country?.toLowerCase()}}.png"
+                                        style="width: 16px; height: 16px;" />
+                                    {{ item.country }}
+                                    </span>
+                                    <span>{{ item.total_events }}</span>
+                                </li>
+                                }
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    }
+                    @else {
+                    <div class="w-100 d-flex justify-content-center align-items-center" style="margin-top: 20%;">
+                    <span>No Data Found</span>
+                    </div>
+                    }
+                    }
+                    @else {
+                    <div class="w-100 d-flex justify-content-center align-items-center" style="margin-top: 35%;">
+                    <div class="spinner"></div>
+                    </div>
+                    }
+
+            
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+           
+
+     <p-dialog 
+             [header]="'Bot Stop Tutorial'"  
+             [modal]="true" 
+             [(visible)]="selectedTutorial" 
+             [style]="{ width: '60rem' }"
+             [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+            <div class="col-12 d-flex justify-content-center align-items-center w-100" style="height: 26rem;">
+            
+             <iframe
+              width="95%"
+              height=95%
+              src="https://www.youtube.com/embed/_kv2_Ekfxjk?si=yssaIxMh461VqaYi"
+              frameborder="0"
+              allowfullscreen>
+            </iframe>
+
+
+            </div>
+            </p-dialog> 
+
+      </div>
+    </div>
+  </div>
+</div>
+

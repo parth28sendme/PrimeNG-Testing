@@ -1,0 +1,822 @@
+import { CommonModule, formatDate } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { DividerModule } from 'primeng/divider';
+import { InputTextModule } from 'primeng/inputtext';
+import { ChartsComponent } from 'src/app/roles-master/shared/reports/Charts/Charts.component';
+import { ScrollerModule } from 'primeng/scroller';
+import { MeterGroupModule } from 'primeng/metergroup';
+import { catchError, finalize, takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { BotDashboardService } from '../../Traffic-Bot-Dashboard/bot-dashboard.service';
+import { BotDashboardFilters } from '../../Traffic-Bot-Dashboard/Bot-Dashboard-Filters';
+import { FormsModule } from '@angular/forms';
+import { SkeletonModule } from 'primeng/skeleton';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { CardModule } from 'primeng/card';
+import { ChartModule } from 'primeng/chart';
+import { ActivatedRoute } from '@angular/router';
+import { MemberService } from 'src/app/core/services/member.data.service';
+import { RolesIds } from 'src/app/core/enums/RolesIds';
+import { BotOverviewService } from '../../Bot-Stop/Bot-Overview/Bot-Overview.service';
+import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
+
+@Component({
+  selector: 'app-bot-detection-dashboard',
+  standalone: true,
+  preserveWhitespaces: true,
+  imports: [
+  FormsModule,
+      ChartsComponent,
+      CommonModule,
+      CalendarModule,
+      DividerModule,
+      ButtonModule,
+      InputTextModule,
+      ScrollerModule,
+      MeterGroupModule,
+      SkeletonModule,
+      MultiSelectModule,
+      CardModule,
+      ChartModule,
+      TooltipModule,
+      DialogModule
+  ],
+  templateUrl: './bot-detection-dashboard.component.html',
+  styleUrl: './bot-detection-dashboard.component.scss'
+})
+export class BotDetectionDashboardComponent {
+
+   //#region Injectors
+  private destroy$ = new Subject<void>();
+   _BotOverviewService = inject(BotOverviewService);
+  _service = inject(BotDashboardService);
+  _RoleType = inject(RolesIds);
+  _NetworkGroupService = inject(ActivatedRoute);
+  _MemberService = inject(MemberService);
+  //#endregion
+
+  ////////////////////////////////////////////////////////////////////////////
+
+  //#region Variables
+  items: any[];
+  isLoading: boolean = false;
+  isType2DataLoading: boolean = false;
+  IsCountryDDLLoading: boolean = false;
+  IsDomainDDLLoading: boolean = false;
+  IsFraudTypeDDLLoading: boolean = false;
+  IsOSDDLLoading: boolean = false;
+  IsDeviceDDLLoading: boolean = false;
+  IsDeviceTypeDDLLoading: boolean = false;
+  IsBrowserDDLLoading: boolean = false;
+  IsGraphDataFound: boolean = false;
+  IsFilterLoading: boolean = false;
+  Traffic: any;
+  Bots: any;
+  __Networks: any;
+  __NetworkGroups: any;
+  _SelectedNetworkGroup: any;
+  _SelectedNetwork: any;
+  _Type1Data: any;
+  _Type2Data: any;
+  _TrafficVsBots: any;
+  _CountryWisePercentage: any;
+  _RuleWisePercentage: any;
+  _BotsCounter: { OrderBy: number; Title: String; AdSclicks: number }[] = [];
+  _RequestCostPercentage: any;
+  _DateWiseTraffics: any;
+  _DateWiseBots: any;
+  _FraudTypeWisePercentage: any;
+  _HostWiseData: any;
+  _CountryWiseData: any;
+  _DeviceWiseCount: any;
+  _EntityList: any;
+  _CountryList: any;
+  _ScriptHostingList: any;
+  _ClientList: any;
+  _TempClientList: any;
+  _DomainList: any;
+  _FraudTypeList: any;
+  _OSList: any;
+  _DeviceList: any;
+  _DeviceTypeList: any;
+  _BrowserList: any;
+  _AllFilters: any;
+
+  _SelectedCountry: any[] = [];
+  _SelectedDomain: any[] = [];
+  _SelectedFraudType: any[] = [];
+  _SelectedOS: any[] = [];
+  _SelectedDevice: any[] = [];
+  _SelectedDeviceType: any[] = [];
+  _SelectedBrowser: any[] = [];
+  _SelectedScriptHosting: any[] = [];
+  _SelectedClient: any[] = [];
+  //#endregion
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  //#region Default Value Set
+  RoleId: number = this._MemberService.getRoleID();
+  _selectedFromToDate: Date[] = [new Date(new Date().setDate(new Date().getDate() - 6)), new Date()];
+  _DashFilters: BotDashboardFilters = {
+    FromDate: '',
+    ToDate: '',
+    CountryFilters: '',
+    FraudTypeFilters: '',
+    DomainFilters: '',
+    OSFilters: '',
+    DeviceFilters: '',
+    DeviceTypeFilters: '',
+    BrowserFilters: '',
+    ScriptHostingFilters: '',
+    NetworkFilters: '',
+    NetworkIds: '',
+  }
+
+  //#endregion
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  //#region Constructor & ngOnInit
+  constructor() {}
+
+  ngOnInit() {
+    this.Default();
+    this.GetFilters("OS");
+    this.GetFilters("Browser");
+    //this.GetFilters("DeviceType");
+    this.GetFilters("Host");
+    this.GetFilters("FraudType");
+    this.GetFilters("Country");
+    //this.GetFilters("Client");
+  }
+  //#endregion
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  //#region Functions
+
+  Default() {
+    this._DashFilters.FromDate = formatDate(
+      this._selectedFromToDate[0],
+      'yyyy-MM-dd',
+      'en-US'
+    );
+    this._DashFilters.ToDate = this._selectedFromToDate[1]
+      ? formatDate(this._selectedFromToDate[1], 'yyyy-MM-dd', 'en-US')
+      : formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    this.GetType1Data(this._DashFilters);
+    this.GetNetworkGroups();
+  }
+
+  onScriptHostChange(data: any) {
+    // this._TempClientList = this._ClientList.map(item => ({ name: item.Clients }));
+    // if (data.value.length > 0) {
+    //   this._TempClientList = this._ClientList.filter(f => data.value.some(x => x.name === f.ScriptHost)).map(item => ({ name: item.Clients }));
+    // } else {
+    //   this._TempClientList = this._ClientList.map(item => ({ name: item.Clients }));
+    // }
+  }
+
+  btnSearch_Click() {
+    this._DashFilters.FromDate = formatDate(this._selectedFromToDate[0], 'yyyy-MM-dd', 'en-US');
+    this._DashFilters.ToDate = this._selectedFromToDate[1] ? formatDate(this._selectedFromToDate[1], 'yyyy-MM-dd', 'en-US') : formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    this._DashFilters.FraudTypeFilters = this._SelectedFraudType != null ? this._SelectedFraudType.map(x => x.name).join("','") : "";
+    this._DashFilters.DomainFilters = this._SelectedDomain != null ? this._SelectedDomain.map(x => x.name).join("','") : "";
+    this._DashFilters.CountryFilters = this._SelectedCountry != null ? this._SelectedCountry.map(x => x.name).join("','") : "";
+    this._DashFilters.OSFilters = this._SelectedOS != null ? this._SelectedOS.map(x => x.name).join("','") : "";
+    this._DashFilters.DeviceFilters = this._SelectedDevice != null ? this._SelectedDevice.map(x => x.name).join("','") : "";
+    this._DashFilters.DeviceTypeFilters = this._SelectedDeviceType != null ? this._SelectedDeviceType.map(x => x.name).join("','") : "";
+    this._DashFilters.BrowserFilters = this._SelectedBrowser != null ? this._SelectedBrowser.map(x => x.name).join("','") : "";
+    this._DashFilters.ScriptHostingFilters = this._SelectedScriptHosting != null ? this._SelectedScriptHosting.map(x => x.name).join("','") : "";
+    this._DashFilters.NetworkFilters = this._SelectedClient != null ? this._SelectedClient.map(x => x.name).join("','") : "";
+    this._DashFilters.NetworkIds = this._SelectedNetwork != null ? this._SelectedNetwork : "";
+
+    if (this.__Networks != undefined && this._SelectedNetworkGroup != undefined) {
+      if (this.__Networks.length > 0
+        && this._SelectedNetworkGroup.length > 0
+        && this._SelectedNetwork == 0
+      ) {
+        this._DashFilters.NetworkIds = this.__Networks.map(x => x.value);
+      }
+    }
+
+    this.GetType1Data(this._DashFilters);
+
+    this.TrafficFilters.fromDate = formatDate(this._selectedFromToDate[0], 'yyyy-MM-dd', 'en-US');
+    this.TrafficFilters.toDate = this._selectedFromToDate[1] ? formatDate(this._selectedFromToDate[1], 'yyyy-MM-dd', 'en-US') : formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    this.GetData();
+  }
+
+  btnReset_Click() {
+    this._selectedFromToDate = [
+      new Date(new Date().setDate(new Date().getDate() - 6)),
+      new Date(),
+    ];
+    this.ClearFilters();
+    this.Default();
+    this.OverviewDefault()
+  }
+
+  ClearFilters() {
+    this._DashFilters.FromDate = '';
+    this._DashFilters.ToDate = '';
+    this._DashFilters.CountryFilters = '';
+    this._DashFilters.DomainFilters = '';
+    this._DashFilters.FraudTypeFilters = '';
+    this._DashFilters.OSFilters = '';
+    this._DashFilters.DeviceFilters = '';
+    this._DashFilters.DeviceTypeFilters = '';
+    this._DashFilters.BrowserFilters = '';
+    this._DashFilters.NetworkFilters = '';
+    this._DashFilters.ScriptHostingFilters = '';
+    this._DashFilters.NetworkIds = '';
+
+    this._SelectedCountry = [];
+    this._SelectedFraudType = [];
+    this._SelectedDomain = [];
+    this._SelectedOS = [];
+    this._SelectedDevice = [];
+    this._SelectedDeviceType = [];
+    this._SelectedBrowser = [];
+    this._SelectedScriptHosting = [];
+    this._SelectedClient = [];
+    this._SelectedNetwork = [];
+    this._SelectedNetworkGroup = [];
+
+    this.__Networks = [];
+
+    this._TempClientList = this._ClientList ? this._ClientList.map(item => ({ name: item.Clients })) ?? [] : [];
+  }
+
+  onChangeCountry() {
+    // this.GetDomain();
+    // this.GetFraudType();
+  }
+
+  onChangeFraudType() {
+    // this.GetCountry();
+    // this.GetDomain();
+  }
+
+  onChangeDomain() {
+    // this.GetCountry();
+    // this.GetFraudType();
+  }
+
+ processApiResponseRequestCost() {
+  const apiData = this._RequestCostPercentage;
+
+  const labels = apiData.map((item) => item.label);
+  const values = apiData.map((item) => parseFloat(item.value));
+  const values2 = apiData.map((item) => parseFloat(item.Trafficpercentage));
+
+  this._RequestCostPercentage = {
+    id: 1,
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Detected Bots',
+          data: values,
+          backgroundColor: ['#2F80ED'],
+        },
+        {
+          label: 'Detected Traffic',
+          data: values2,
+          backgroundColor: ['#e6ebea'],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y', // 👈 Makes the bar chart horizontal
+      plugins: {
+        legend: {
+          position: 'bottom',
+          display: true,
+          labels: { font: { size: 10 } },
+        },
+        tooltip: {
+          titleFont: { size: 10 },
+          bodyFont: { size: 10 },
+          footerFont: { size: 10 },
+          callbacks: {
+            label: (tooltipItem) => {
+              const data = tooltipItem.raw as number;
+              return `Value: ${data}%`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: { font: { size: 8 } },
+           grid: {
+              display: false 
+            },
+          stacked: true,
+        },
+        y: {
+          ticks: { font: { size: 8 } },
+           grid: {
+              display: false 
+            },
+          stacked: true,
+        },
+      },
+    },
+  };
+}
+
+
+  processApiResponseDateWiseBots() {
+    const apiData = this._DateWiseBots;
+
+    const labels = apiData.map((item) => item.label);
+    const values = apiData.map((item) => parseFloat(item.value));
+
+    this._DateWiseBots = {
+      id: 1,
+      type: 'bar',
+      data: {
+        labels: labels,
+       datasets: [
+            {
+              label: 'Detected IPs by Bots',
+              data: values,
+              backgroundColor: '#A855F7',  // Dot (point) color
+              borderColor: '#A855F7',      // Line color
+              pointBackgroundColor: '#A855F7',
+              borderWidth : 1,  // Optional, dots
+              tension: 0.1, // Optional for smooth curves
+              fill: false ,  // Optional: true = fill under line
+              pointRadius: 0,         // hides the dots
+              pointHoverRadius: 6,    // allows tooltips on hover
+              pointHitRadius: 10      // makes the hover area larger
+            }
+          ],
+
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            display: true,
+            labels: { font: { size: 10 } },
+          },
+          tooltip: {
+            titleFont: { size: 10 },
+            bodyFont: { size: 10 },
+            footerFont: { size: 10 },
+          },
+        },
+        scales: {
+          x: {
+            ticks: { font: { size: 8 } },
+             grid: {
+              display: false 
+            }
+          },
+          y: {
+            ticks: { font: { size: 8 } },
+          },
+        },
+      },
+    };
+  }
+
+  processApiResponseDateWiseTraffic() {
+    const apiData = this._DateWiseTraffics;
+
+    const labels = apiData.map((item) => item.label);
+    const values = apiData.map((item) => parseFloat(item.value));
+
+    this._DateWiseTraffics = {
+      id: 1,
+      type: 'bar',
+      data: {
+        labels: labels,
+       datasets: [
+                  {
+                    label: 'Detected IPs by Traffic',
+                    data: values,
+                    backgroundColor: '#28C76F',       // Optional: for points or fill
+                    borderColor: '#28C76F',           // 👈 Line color
+                    pointBackgroundColor: '#28C76F',  // Optional: point dots
+                    tension: 0.1,        
+                    borderWidth : 1,             // Optional: curve the line
+                    fill: false,
+                    pointRadius: 0,         // hides the dots
+                    pointHoverRadius: 6,    // allows tooltips on hover
+                    pointHitRadius: 10      // makes the hover area larger
+                       // Optional: no area fill
+                  }
+                ],
+
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            display: true,
+            labels: { font: { size: 10 } },
+          },
+          tooltip: {
+            titleFont: { size: 10 },
+            bodyFont: { size: 10 },
+            footerFont: { size: 10 },
+          },
+        },
+        scales: {
+          x: {
+            ticks: { font: { size: 8 } },
+             grid: {
+              display: false 
+            }
+          },
+          y: {
+            ticks: { font: { size: 8 } },
+          },
+        },
+      },
+    };
+  }
+
+  processApiResponseFraudType() {
+    const apiData = this._FraudTypeWisePercentage;
+
+    const labels = apiData.map((item) => item.label);
+    const values = apiData.map((item) => parseFloat(item.value));
+
+    this._FraudTypeWisePercentage = {
+      id: 1,
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Fraud Type',
+            data: values,
+             backgroundColor: [
+                "#e3edff", "#f5f0fe", "#eee4fd", "#e6d7fc", "#decafc", "#b9d2fa", "#a5c5f9", "#8eb6f8", "#7ea8f7", "#5f92f5" 
+            ],
+               },
+          ],
+       },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            display: true,
+            labels: { font: { size: 8, position: 'bottom' } },
+          },
+          title: {
+            display: false,
+            text: 'Fraud Type',
+          },
+          tooltip: {
+            titleFont: { size: 10 },
+            bodyFont: { size: 10 },
+            footerFont: { size: 10 },
+            callbacks: {
+              label: (tooltipItem) => {
+                const data = tooltipItem.raw as number; // Current data value
+                return `Value: ${data}%`;
+              },
+            },
+          },
+        },
+      },
+    };
+  }
+
+  processApiResponseHostWiseData() {
+    const apiData = this._HostWiseData;
+
+    const labels = apiData.map((item) => item.label);
+    const values = apiData.map((item) => parseFloat(item.value));
+
+    this._HostWiseData = {
+      id: 1,
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Host',
+            data: values,
+            backgroundColor: [
+                 "#dcf5ed" ,"#b8e7dc", "#91e1d7","#69cfcf","#34c5b9","#18b6ae","#189187","#15776f" ,"#13615e", "#0f4744"
+              ]
+        },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            display: true,
+            labels: { font: { size: 8, position: 'bottom' } },
+          },
+          title: {
+            display: false,
+            text: 'Source',
+          },
+          tooltip: {
+            titleFont: { size: 10 },
+            bodyFont: { size: 10 },
+            footerFont: { size: 10 },
+            callbacks: {
+              label: (tooltipItem) => {
+                const data = tooltipItem.raw as number; // Current data value
+                return `Value: ${data}%`;
+              },
+            },
+          },
+        },
+      },
+    };
+  }
+
+  processApiResponseCountryWiseData() {
+    const apiData = this._CountryWiseData;
+
+    const labels = apiData.map((item) => item.label);
+    const values = apiData.map((item) => parseFloat(item.value));
+
+    this._CountryWiseData = {
+      id: 1,
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Country',
+            data: values,
+            backgroundColor: [
+            "#fff8f4", "#fdddc7", "#fdc69f", "#fcb284", "#fa9659", "#fb7818", "#d36114", "#a64f13", "#803913", "#4f1f0c"
+            ],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            display: true,
+            labels: { font: { size: 15, position: 'bottom' } },
+          },
+          title: {
+            display: false,
+            text: 'Country',
+          },
+          tooltip: {
+            titleFont: { size: 10 },
+            bodyFont: { size: 10 },
+            footerFont: { size: 10 },
+            callbacks: {
+              label: (tooltipItem) => {
+                const data = tooltipItem.raw as number; // Current data value
+                return `Value: ${data}%`;
+              },
+            },
+          },
+        },
+      },
+    };
+  }
+
+  ChangeNetworkGroup() {
+    this.__Networks = this._SelectedNetworkGroup.networks;
+
+    this.__Networks = [];
+    this._SelectedNetwork = [];
+    let selectednetworkGroups = [];
+
+    this._SelectedNetworkGroup.forEach(x => {
+      selectednetworkGroups.push(this.__NetworkGroups.find(element => element['value'] == x));
+    });
+    selectednetworkGroups.forEach(networkGroup => {
+      let networks = networkGroup['networks'];
+      networks.forEach(network => {
+        this.__Networks.push(network);
+      });
+    });
+  }
+
+  //#endregion
+  /////////////////////////////////////////////////////////////////////////////
+
+  //#region Services Functions
+
+  GetNetworkGroups() {
+    if (this.RoleId == this._RoleType.NetworksGroups){
+      this._NetworkGroupService.data.subscribe((data: any) => {
+        const networks = data?.networks || [];
+        this.__NetworkGroups = networks;
+      });
+    }else
+    {
+      this._NetworkGroupService.data.subscribe(data => {
+        this.__NetworkGroups = data.networkGroups;
+      });
+    }
+  }
+
+  GetType1Data(data: any) {
+    this.isLoading = false;
+    this._service
+      .GetData(data)
+      .pipe(
+        finalize(() => (this.isLoading = true)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((x) => {
+        if (x) {
+          const parsedData = JSON.parse(x.body);
+          console.log("DAta: ",parsedData);
+          this._Type1Data = parsedData.data;
+          this._BotsCounter = this._Type1Data.BotsCount;
+          this._BotsCounter.sort((a, b) => a.OrderBy - b.OrderBy);
+  console.log("_BotsCounter" , this._BotsCounter);
+          this._RuleWisePercentage = this._Type1Data.RuleIdWiseCount;
+          this._RequestCostPercentage = this._Type1Data.RequestCostPercentage;
+          this._DateWiseBots = this._Type1Data.DateWiseBots;
+          this._DateWiseTraffics = this._Type1Data.DateWiseTraffic;
+          this._FraudTypeWisePercentage =
+            this._Type1Data.FraudTypeWisePercentage;
+          this._HostWiseData = this._Type1Data.HostWiseData;
+          this._CountryWiseData = this._Type1Data.CountryWiseData;
+
+          this.IsGraphDataFound = parsedData.data.IsGraphDataFound;
+
+          this.processApiResponseRequestCost();
+          this.processApiResponseDateWiseBots();
+          this.processApiResponseDateWiseTraffic();
+          this.processApiResponseFraudType();
+          this.processApiResponseHostWiseData();
+          this.processApiResponseCountryWiseData();
+
+          this._DeviceWiseCount = this._Type1Data.DeviceTypeData;
+
+          for (let i = 0; i < this._BotsCounter.length; i++) {
+            if (this._BotsCounter[i].OrderBy === 1) {
+              this.Traffic = this._BotsCounter[i].AdSclicks;
+            }
+            if (this._BotsCounter[i].OrderBy === 3) {
+              this.Bots = this._BotsCounter[i].AdSclicks;
+            }
+          }
+        }
+      });
+
+      console.log("_BotsCounter" , this._BotsCounter);
+  }
+
+  GetFilters(filtername: string) {
+    this._service.GetFilters(filtername)
+    .pipe(finalize(() => { this.IsFilterLoading = false }), takeUntil(this.destroy$))
+    .subscribe(x => {
+      if(x) {
+        const parsedBody = JSON.parse(x.body)
+        console.log("data" , parsedBody.data);
+        switch (filtername) {
+          case 'OS':
+            this._OSList = parsedBody.data.OS.map(item => ({ name: item }));
+            break;
+          case 'Browser':
+            this._BrowserList = parsedBody.data.Browser.map(item => ({ name: item }));
+            break;
+          case 'DeviceType':
+            this._DeviceTypeList = parsedBody.data.DeviceType.map(item => ({ name: item }));
+            break;
+          case 'Host':
+            this._DomainList = parsedBody.data.Host.map(item => ({ name: item }));
+            break;
+          case 'FraudType':
+            this._FraudTypeList = parsedBody.data.FraudType.map(item => ({ name: item }));
+            break;
+          case 'Country':
+            this._CountryList = parsedBody.data.Country.map(item => ({ name: item }));
+            break;
+          default:
+            this._ClientList = parsedBody.data.network;
+            this._TempClientList = this._ClientList.map(item => ({ name: item.Clients }));
+            break;
+        }
+      }
+    })
+  }
+
+  _ScriptHosting = [
+    { name: 'Client Side', value: 1 },
+    { name: 'Mobibox Firewall', value: 2 },
+  ];
+
+  //#endregion
+
+
+
+ //#region New Dashboard
+
+
+
+  selectedgeneral : boolean = true;
+  selectedTutorial : boolean = false;
+        InsightsChange(value : any){
+      this.selectedgeneral =  value == 1 ? true : false;
+      if(value!=1){
+      this.OverviewDefault()
+         }else{
+          this.Default();
+
+         }
+    }
+
+          TutorialChange(value){
+          this.selectedTutorial =  value == 1 ? true : false;
+          }
+
+
+ //#endregion
+
+//#region Traffic/Overview
+  IsLoading: boolean = false;
+  IsDataAvailable: boolean = true;
+  BrowserList: any;
+  CountriesList: any;
+  DomainList: any;
+  Usage: any;
+  UniqueVisitors: any;
+  EventPerVisitor: any;
+  AverageRPS: number = 0;
+
+
+TrafficFilters: any = {
+    fromDate: '',
+    toDate: '',
+    NetworkIds: []
+  }
+
+   OverviewDefault() {
+    this.TrafficFilters.fromDate = formatDate(
+      this._selectedFromToDate[0],
+      'yyyy-MM-dd',
+      'en-US'
+    );
+    this.TrafficFilters.toDate = this._selectedFromToDate[1]
+      ? formatDate(this._selectedFromToDate[1], 'yyyy-MM-dd', 'en-US')
+      : formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    this.GetData();
+  }
+GetData() {
+    this.IsLoading = true;
+    this.IsDataAvailable = true;
+    this._BotOverviewService
+      .GetData(this.TrafficFilters)
+      .pipe(
+        finalize(() => (this.IsLoading = false)),
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          this.IsLoading = false; // Stop loading if there's an error
+          // You can display an error message or handle it differently here
+          this.IsDataAvailable = false; // Set flag if data is not found
+          return throwError(() => new console.log('API Failed')); // Re-throw the error
+        })
+      )
+      .subscribe((data: any) => {
+
+        const parsedData = JSON.parse(data.body);
+      
+        if (!parsedData.data.IsDataAvailable) {
+          this.IsDataAvailable = false;
+          this.Usage = 0;
+          this.UniqueVisitors = 0;
+          this.EventPerVisitor = 0;
+          this.AverageRPS = 0;
+          console.log('No Data Found');
+        } else {
+          this.DomainList = parsedData.data.domain_events;
+          this.BrowserList = parsedData.data.browser_events;
+          this.CountriesList = parsedData.data.country_events;
+          this.Usage = parsedData.data.total_count;
+          this.UniqueVisitors = parsedData.data.distinct_visitor_count;
+          this.EventPerVisitor = parsedData.data.average_events_per_visitor;
+          this.AverageRPS = parsedData.data.rollingAveragePerSecond;
+        }
+      });
+  }
+
+
+ //#endregion
+}
