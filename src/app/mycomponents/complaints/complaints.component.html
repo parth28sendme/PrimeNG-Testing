@@ -1,3 +1,4 @@
+<p-toast position="top-center" key="success" [baseZIndex]="50000"></p-toast>
 <div class="col-12">
   <div class="title py-2">
      <h4>Complaints</h4>
@@ -11,22 +12,28 @@
             [filter]="true">
           </p-dropdown>
   
-          <p-dropdown class="filters" [options]="supportTeamList" [(ngModel)]="supportTeam" optionLabel="name" placeholder="Select Priority"
+          <p-dropdown class="filters" [options]="supportTeamList" [(ngModel)]="supportTeam" optionLabel="name" placeholder="Select Team"
             [filter]="true">
           </p-dropdown>
           
-        <button class="btn btn-success btn-light-success waves-effect waves-light" (click)="Click_Search($event)">
-          <i class="pi pi-search" style="font-size: 0.8rem"></i>
+        <button class="btn btn-success btn-light-success waves-effect waves-light search-btn" (click)="Click_Search($event)">
+          <i class="pi pi-search" style="font-size: 0.8rem;font-weight: 600;"></i>
         </button>
 
-        <button class="btn btn-secondary waves-effect ml-1" (click)="Click_Reset()">
-          <i class="pi pi-replay" style="font-size: 0.8rem"></i>
+        <button class="btn btn-secondary waves-effect ml-1 reset-btn" (click)="Click_Reset()">
+          <i class="pi pi-replay" style="font-size: 0.8rem ;font-weight: 600;"></i>
         </button>
       </div>
   </div>
 </div>
 
-<div  class="row mt-5">
+<div class="px-2 py-2 mb-2 text-nowrap mt-3"
+style="font-size: 0.9rem; background-color: #e9f7fe; border-left: 4px solid #17a2b8;
+ border-radius: 6px; color: #0c5460; width: max-content; font-weight: 500;">
+Click on the edit icon to view and edit the details of a particular Complaint
+</div>
+
+<div  class="row mt-4">
   <div class="col-4 mb-4 ">
     <div class="p-grid p-grid-responsive p-grid-responsive-md p-grid-responsive-lg">
       <div class="p-card-header d-flex align-items-center">
@@ -42,9 +49,9 @@
                 <li class="list-group-item d-flex fw-bold "
                 style="position: sticky; top: 0; background-color: white; z-index: 1;">
               <div class="d-flex w-100">
-                <div class="text-end pr-3" style="width: 30%;">ComplaintID</div>
-                <div class="text-center pr-3" style="width: 55%;">Customer Name</div>
-                <div class="d-flex align-items-end justify-content-center" style="width: 15%;">Priority</div>
+                <div class="text-center pr-3" style="width: 30%;font-size: 80%;">ComplaintID</div>
+                <div class="text-center pr-3" style="width: 55%;font-size: 80%;">Customer Name</div>
+                <div class="d-flex align-items-end justify-content-center" style="width: 15%;font-size: 80%;">Priority</div>
               </div>
             </li>
               <!--No Data-->
@@ -59,18 +66,19 @@
               <ng-container *ngFor="let item of complaintsData">
                 <li *ngIf="item.complaintStatus === 'Pending'" class="list-group-item d-flex">
                   <div class="d-flex w-100">
-                    <div class="text-center d-flex align-items-center justify-content-start" style="width: 30%;">
+                    <div class="text-center d-flex align-items-center justify-content-start" style="width: 35%;font-size: 80%;">
                       <button type="button"
                              (click)="displayInfo(item.complaintId)"
                               pButton
+                              pTooltip="Edit" tooltipPosition="left"
                               icon="pi pi-pencil"
-                              class="btn btn-primary btn-sm" style="margin-right: 0.8rem;"></button> 
-                      {{item.complaintId}}
+                              class="btn btn-primary btn-sm" style="font-size: 60%;"></button> 
+                      <span style="margin-left: 0.4rem;">{{item.complaintId}}</span>
                     </div>
-                    <div class="text-end d-flex align-items-start justify-content-center" style="width: 55%;">
+                    <div class="text-end d-flex align-items-start justify-content-center" style="width: 50%;font-size: 80%;">
                       {{item.customerName}}
                     </div>
-                    <div class="text-end d-flex align-items-start justify-content-center" style="width: 15%;">
+                    <div class="text-end d-flex align-items-start justify-content-center" style="width: 15%;font-size: 80%;">
                       {{item.priority}}
                     </div>
                   </div>
@@ -99,9 +107,9 @@
                     <li class="list-group-item d-flex fw-bold"
                     style="position: sticky; top: 0; background-color: white; z-index: 1;">
                   <div class="d-flex w-100">
-                    <div class="text-end pr-3" style="width: 30%;">ComplaintID</div>
-                    <div class="text-center pr-3" style="width: 55%;">Customer Name</div>
-                    <div class="d-flex align-items-end justify-content-center" style="width: 15%;">Priority</div>
+                    <div class="text-center pr-3" style="width: 30%;font-size: 80%;">ComplaintID</div>
+                    <div class="text-center pr-3" style="width: 55%;font-size: 80%;">Customer Name</div>
+                    <div class="d-flex align-items-end justify-content-center" style="width: 15%;font-size: 80%;">Priority</div>
                   </div>
                 </li>
                   <!--No Data-->
@@ -116,18 +124,19 @@
                   <ng-container *ngFor="let item of complaintsData">
                     <li *ngIf="item.complaintStatus === 'Under Investigation'" class="list-group-item d-flex">
                       <div class="d-flex w-100">
-                        <div class="text-center d-flex align-items-center justify-content-start" style="width: 30%;">
+                        <div class="text-center d-flex align-items-center justify-content-start" style="width: 35%;font-size: 80%;">
                           <button type="button"
                                  (click)="displayInfo(item.complaintId)"
                                   pButton
+                                  pTooltip="Edit" tooltipPosition="left"
                                   icon="pi pi-pencil"
-                                  class="btn btn-primary btn-sm" style="margin-right: 0.8rem;"></button> 
-                          {{item.complaintId}}
+                                  class="btn btn-primary btn-sm" style="font-size: 55%;"></button> 
+                         <span style="margin-left: 0.4rem;">{{item.complaintId}}</span> 
                         </div>
-                        <div class="text-end d-flex align-items-start justify-content-center" style="width: 55%;">
+                        <div class="text-end d-flex align-items-start justify-content-center" style="width: 50%;font-size: 80%;">
                           {{item.customerName}}
                         </div>
-                        <div class="text-end d-flex align-items-start justify-content-center" style="width: 15%;">
+                        <div class="text-end d-flex align-items-start justify-content-center" style="width: 15%;font-size: 80%;">
                           {{item.priority}}
                         </div>
                       </div>
@@ -156,9 +165,9 @@
                         <li class="list-group-item d-flex fw-bold"
                         style="position: sticky; top: 0; background-color: white; z-index: 1;">
                       <div class="d-flex w-100">
-                        <div class="text-end pr-3" style="width: 30%;">ComplaintID</div>
-                        <div class="text-center pr-3" style="width: 55%;">Customer Name</div>
-                        <div class="d-flex align-items-end justify-content-center" style="width: 15%;">Priority</div>
+                        <div  class="text-center pr-3" style="width: 30%; font-size: 80%;">ComplaintID</div>
+                        <div class="text-center pr-3" style="width: 55%;font-size: 80%;">Customer Name</div>
+                        <div class="d-flex align-items-end justify-content-center" style="width: 15%;font-size: 80%;">Priority</div>
                       </div>
                     </li>
                       <!--No Data-->
@@ -173,18 +182,19 @@
                       <ng-container *ngFor="let item of complaintsData">
                         <li *ngIf="item.complaintStatus === 'Resolved'" class="list-group-item d-flex">
                           <div class="d-flex w-100">
-                            <div class="text-center d-flex align-items-center justify-content-start" style="width: 30%;">
+                            <div  class="text-center d-flex align-items-center justify-content-start" style="width: 35%;font-size: 80%;">
                               <button type="button"
                                      (click)="displayInfo(item.complaintId)"
                                       pButton
+                                      pTooltip="Edit" tooltipPosition="left"
                                       icon="pi pi-pencil"
-                                      class="btn btn-primary btn-sm" style="margin-right: 0.8rem;"></button> 
-                              {{item.complaintId}}
+                                      class="btn btn-primary btn-sm" style="font-size: 60%;"></button> 
+                             <span class="ml-2" style="margin-left: 0.4rem;">{{item.complaintId}}</span>
                             </div>
-                            <div class="text-end d-flex align-items-start justify-content-center" style="width: 55%;">
+                            <div class="text-end d-flex align-items-start justify-content-center" style="width: 50%;font-size: 80%;">
                               {{item.customerName}}
                             </div>
-                            <div class="text-end d-flex align-items-start justify-content-center" style="width: 15%;">
+                            <div class="text-end d-flex align-items-start justify-content-center" style="width: 15%;font-size: 80%;">
                               {{item.priority}}
                             </div>
                           </div>
@@ -206,38 +216,119 @@
       header="Complaint Details "  
       [(visible)]="display" 
       [modal]="true" 
-      [style]="{width: '50vw' }"   
+      [style]="{width: '60rem' }"   
       [breakpoints]="{'960px': '95vw'}"
       [closable]="true"
       
       >
+
       <ng-container *ngIf="selectedComplaint">
-        <button type="button"
-       (click)="statusChange('Pending',selectedComplaint.complaintId)"  pButton
-        class="btn " [ngStyle]="{ 'background-color': selectedComplaintStatus === 'Pending' ? 'red' : '#0d1763','color': 'white'}"
-        style="margin-right: 0.1rem;">Pending</button> 
+        <h3 class="py-2 mb-3 " style="text-align: center;" [ngStyle]="getColor(selectedComplaint.priority)">{{selectedComplaint.priority}} Priority</h3>
+       
+        <div class="d-flex justify-content-between pr- mt-1 mb-1">
+            <div style="width: 40%;" >
+              <p style="margin-left: 0.6rem;font-size: 120%; font-weight: 600 ;  color: rgb(69, 67, 67);">
+                Complaint Id : {{selectedComplaint.complaintId}}</p>
+            </div>
+            <div class="d-flex justify-content-end" style="width: 60%; height: 2.4rem"> 
+              <button type="button"
+            (click)="statusChange('Pending',selectedComplaint.complaintId)"  
+              class="btn h-100 w-33 p-card" [ngStyle]="selectedComplaintStatus === 'Pending' ? 
+              {'background': 'linear-gradient(to right, #001845, #1e3c72)','color': 'white','fontWeight':'700'} : 
+              {'background-color': 'white','color': '#0d1763','fontWeight':'550'}"
+              style=" text-align: center;border: 1px solid #0d1763; ; border-radius: 15px 0px 0px 15px;">
+              {{selectedComplaintStatus == "Pending" ? 'Pending' : 'Move to Pending'}}</button> 
 
-       <button type="button"
-       (click)="statusChange('Under Investigation',selectedComplaint.complaintId)"  pButton
-        class="btn " [ngStyle]="{ 'background-color': selectedComplaintStatus === 'Under Investigation' ? 'red' : 'black','color': 'white'}"
-        style="margin-right: 0.1rem;">Under Investigation</button> 
+            <button type="button"
+            (click)="statusChange('Under Investigation',selectedComplaint.complaintId)"  
+              class="btn h-100 w-34 p-card" [ngStyle]="selectedComplaintStatus === 'Under Investigation' ? 
+              {'background': 'linear-gradient(to right, #001845, #1e3c72)','color': 'white', 'fontWeight':'700'} :
+              {'background-color': 'white','color': '#0d1763' ,'fontWeight':'550'}"
+              style=" text-align: center;border: 1px solid #0d1763; border-radius: 0px;"
+              >{{selectedComplaintStatus == "Under Investigation" ? 'Under Investigation' : 'Move to Investigation'}}</button> 
 
-        <button type="button"
-        (click)="statusChange('Resolved',selectedComplaint.complaintId)" pButton
-        class="btn " [ngStyle]="{ 'background-color': selectedComplaintStatus === 'Resolved' ? 'red' : '#0d1763','color': 'white'}"
-        style="margin-right: 0.1rem;">Resolved</button> 
+              <button type="button"
+              (click)="statusChange('Resolved',selectedComplaint.complaintId)" 
+              class="btn h-100 w-33 p-card" [ngStyle]="selectedComplaintStatus === 'Resolved' ?
+              {'background': 'linear-gradient(to right, #001845, #1e3c72)','color': 'white','fontWeight':'700'} : 
+              {'background-color': 'white','color': '#0d1763','fontWeight':'550'}"
+              style=" text-align: center;border: 1px solid #0d1763;border-radius: 0px 15px 15px 0px;"
+              >{{selectedComplaintStatus == "Resolved" ? 'Resolved' : 'Move to Resolved'}}</button> 
+            </div>
+        </div> 
+        
+        <div class="d-flex justify-content-end mb-3 mr-5" style="margin-right: 1%;color: #0d1763;">
+       <!-- <p>(You can change the Status of Complaint using above tabs.)</p> -->
+        </div>
+        
+        <div class="d-flex" >
+          <div class="col-6 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <p style=" font-size: 100% ;text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Customer Name : 
+                <span style="font-weight: 700;color: #001845;"> {{selectedComplaint.customerName}}</span></p>
+            </div>
+            </div>       
+          </div> 
+           <div class="col-6 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <p style=" font-size: 100% ;text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Complain Type : 
+                <span style="font-weight: 700;color: #001845;"> {{selectedComplaint.complaintType}}</span></p>
+            </div>
+            </div>       
+          </div>   
+        </div>
 
-        <h5>complaintId : {{selectedComplaint.complaintId}}</h5>
-        <h5>customerName :{{selectedComplaint.customerName}}</h5>
-        <h5>complaintType :{{selectedComplaint.complaintType}}</h5>
+        <div class="d-flex">
+          <div class="col-6 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <p style="font-size: 100% ;text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Complain Date : 
+                <span style="font-weight: 700;color: #001845;"> {{selectedComplaint.complaintDate}}</span></p>
+            </div>
+            </div>       
+          </div>
+          <div class="col-6 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <p style="font-size: 100% ; text-align: center; font-weight: 700; color: rgb(69, 67, 67);">Assigned To : 
+                <span style="font-weight: 700;color: #001845;"> {{selectedComplaint.assignedTo}}</span></p>
+            </div>
+            </div>       
+          </div>
+        </div>
+
+        <div class="d-flex flex-column">
+          <div class="col-12 px-3">
+            <div class="form-group mt-4">
+              <label style="font-size: 1.2rem;  color: rgb(69, 67, 67);" for="commentBox">
+                Compalint Desciption <i *ngIf="!DescEdit"  pTooltip="Edit Description" tooltipPosition="top"
+                style="color: #0d1763; cursor: pointer;margin-left: 0.4rem; font-size: 1.3rem;" 
+                class="pi pi-pencil" (click)="EditDesc(true)"></i>
+              </label>
+              <div class="p-card">
+              <textarea id="commentBox" [disabled]="!DescEdit" [(ngModel)]="selectedComplaint.complaintDescription" 
+              class="form-control" rows="4" style="font-size: 1.3rem;font-weight: 500 ;color: #001845 "
+              ></textarea>       
+            </div>     
+            </div>
+            </div>
+            <div *ngIf="DescEdit" class="col-12 d-flex justify-content-end mt-2" style="padding-right: 1rem;">
+              <div class="col-4 d-flex gap-2">
+              <button pButton (click)="EditDesc(false)"  type="button" label="Cancel" class="p-button-outlined p-button-primary w-50" style="border-color:  #0d1763 ; color:  #0d1763;"></button>
+              <button pButton (click)="SaveDesc()" label = "Save"  type="button"   class="p-button w-50 primary " ></button>
+            </div>
+          </div>
+        </div>
+
+        
+      
+       <!--
         <h5>complaintDescription :{{selectedComplaint.complaintDescription}}</h5>
-        <h5>complaintDate :{{selectedComplaint.complaintDate}}</h5>
-        <h5>resolutionDetails :{{selectedComplaint.resolutionDetails}}</h5>
-        <h5>resolutionDate :{{selectedComplaint.resolutionDate}}</h5>
-        <h5>assignedTo :{{selectedComplaint.assignedTo}}</h5>
-        <h5>priority :{{selectedComplaint.priority}}</h5>
-        <h5>followUpDate :{{selectedComplaint.followUpDate}}</h5>
 
+        <h5>followUpDate :{{selectedComplaint.followUpDate}}</h5>
+-->
 
 
 

@@ -1,3 +1,5 @@
+<p-toast position="top-center" key="success" [baseZIndex]="50000"></p-toast>
+
 <div class="col-12">
   <div class="title py-2">
      <h4>Funds</h4>
@@ -5,10 +7,10 @@
 </div>
 
 <div class="row">
-  <div class="col-12 mb-4">
+  <div class="col-12 mb-2">
       <div class="filters-container">      
 
-      <p-dropdown  [options]="riskList" [(ngModel)]="risk" optionLabel="name" placeholder="Select Fund Risk Level"
+      <p-dropdown  [options]="riskList" [(ngModel)]="risk" optionLabel="name" placeholder="Select Fund Risk Profile"
       [filter]="true">
       </p-dropdown>
 
@@ -17,21 +19,27 @@
         </div>
 
 
-        <button class="btn btn-success btn-light-success waves-effect waves-light" (click)="Click_Search($event)">
-          <i class="pi pi-search" style="font-size: 0.8rem"></i>
+        <button class="btn btn-success btn-light-success waves-effect waves-light search-btn" (click)="Click_Search($event)">
+          <i class="pi pi-search" style="font-size: 0.8rem; font-weight: 600;"></i>
         </button>
 
-        <button class="btn btn-secondary waves-effect ml-1" (click)="Click_Reset()">
-          <i class="pi pi-replay" style="font-size: 0.8rem"></i>
+        <button class="btn btn-secondary waves-effect ml-1 reset-btn" (click)="Click_Reset()">
+          <i class="pi pi-replay" style="font-size: 0.8rem;font-weight: 600;"></i>
         </button>
       </div>
   </div>
 </div>
 
+<div class="px-2 py-2 mb-2 text-nowrap mt-3"
+style="font-size: 0.9rem; background-color: #e9f7fe; border-left: 4px solid #17a2b8;
+ border-radius: 6px; color: #0c5460; width: max-content; font-weight: 500;">
+Click on the eye icon to view the details of a particular Fund
+</div>
 
 
-<div  class="row mt-5">
-  <div class="col-4 mb-4 ">
+
+<div  class="row mt-3">
+  <div class="col-lg-4 col-12 mb-4 ">
     <div class="p-grid p-grid-responsive p-grid-responsive-md p-grid-responsive-lg">
       <div class="p-card-header d-flex align-items-center">
         <h5 class="p-card-title mb-2">
@@ -46,8 +54,8 @@
                 <li class="list-group-item d-flex fw-bold"
                 style="position: sticky; top: 0; background-color: white; z-index: 1;">
               <div class="d-flex w-100">
-                <div class="text-center pr-3" style="width: 75%;">Fund Name</div>
-                <div class="d-flex align-items-end justify-content-center" style="width: 25%;">Risk</div>
+                <div class="text-center pr-3" style="width: 75%;font-size: 80%;">Fund Name</div>
+                <div class="d-flex align-items-end justify-content-center" style="width: 25%;font-size: 80%;">Risk</div>
               </div>
             </li>
               <!--No Data-->
@@ -62,16 +70,17 @@
             <li  *ngFor="let item of Bonds"
             class="list-group-item d-flex">
           <div class="d-flex w-100">
-            <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;">
+            <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;font-size: 80%;">
               <button type="button"
                       (click)="displayData(item.id ,item.fund)"
                       pButton
                       icon="pi pi-eye"
+                       pTooltip="View Details" tooltipPosition="left"
                       class="btn btn-primary btn-sm" style="margin-right: 1rem ;"></button> 
               {{item.fundName}}
             </div>
       
-            <div class=" text-end d-flex align-items-start justify-content-center" style="width: 20%;">
+            <div class=" text-end d-flex align-items-start justify-content-center" style="width: 20%;font-size: 80%;">
               {{item.riskProfile}}
             </div>
           </div>
@@ -82,7 +91,7 @@
         </div>
       </div>
 
-      <div class="col-4 mb-4 ">
+      <div class="col-lg-4 col-12 mb-4 ">
         <div class="p-grid p-grid-responsive p-grid-responsive-md p-grid-responsive-lg">
           <div class="p-card-header d-flex align-items-center">
             <h5 class="p-card-title mb-2">
@@ -97,8 +106,8 @@
                     <li class="list-group-item d-flex fw-bold"
                     style="position: sticky; top: 0; background-color: white; z-index: 1;">
                   <div class="d-flex w-100">
-                    <div class="text-center pr-3" style="width: 75%;">Fund Name</div>
-                    <div class="d-flex align-items-end justify-content-center" style="width: 25%;">Risk</div>
+                    <div class="text-center pr-3" style="width: 75%;font-size: 80%;">Fund Name</div>
+                    <div class="d-flex align-items-end justify-content-center" style="width: 25%;font-size: 80%;">Risk</div>
                   </div>
                 </li>
                   <!--No Data-->
@@ -113,16 +122,17 @@
                 <li  *ngFor="let item of mutualFunds"
                 class="list-group-item d-flex">
               <div class="d-flex w-100">
-                <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;">
+                <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;font-size: 80%;">
                   <button type="button"
                           (click)="displayData(item.id , item.fund)"
                           pButton
+                           pTooltip="View Details" tooltipPosition="left"
                           icon="pi pi-eye"
                           class="btn btn-primary btn-sm" style="margin-right: 1rem ;"></button> 
                   {{item.fundName}}
                 </div>
           
-                <div class=" text-end d-flex align-items-start justify-content-center" style="width: 20%;">
+                <div class=" text-end d-flex align-items-start justify-content-center" style="width: 20%;font-size: 80%;">
                   {{item.riskProfile}}
                 </div>
               </div>
@@ -134,7 +144,7 @@
           </div>
 
           
-          <div class="col-4 mb-4 ">
+          <div class="col-lg-4 col-12 mb-4 ">
             <div class="p-grid p-grid-responsive p-grid-responsive-md p-grid-responsive-lg">
               <div class="p-card-header d-flex align-items-center">
                 <h5 class="p-card-title mb-2">
@@ -149,8 +159,8 @@
                         <li class="list-group-item d-flex fw-bold"
                         style="position: sticky; top: 0; background-color: white; z-index: 1;">
                       <div class="d-flex w-100">
-                        <div class="text-center pr-3" style="width: 75%;">Fund Name</div>
-                        <div class="d-flex align-items-end justify-content-center" style="width: 25%;">Risk</div>
+                        <div class="text-center pr-3" style="width: 75%;font-size: 80%;">Fund Name</div>
+                        <div class="d-flex align-items-end justify-content-center" style="width: 25%;font-size: 80%;">Risk</div>
                       </div>
                     </li>
                     
@@ -166,16 +176,17 @@
                     <li  *ngFor="let item of SipFunds"
                     class="list-group-item d-flex">
                   <div class="d-flex w-100">
-                    <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;">
+                    <div class=" text-center d-flex align-items-center justify-content-start" style="width: 80%;font-size: 80%;">
                       <button type="button"
                               (click)="displayData(item.id , item.fund)"
                               pButton
+                               pTooltip="View Details" tooltipPosition="left"
                               icon="pi pi-eye"
                               class="btn btn-primary btn-sm" style="margin-right: 1rem ;"></button> 
                       {{item.fundName}}
                     </div>
               
-                    <div class=" text-end d-flex align-items-start justify-content-center" style="width: 20%;">
+                    <div class=" text-end d-flex align-items-start justify-content-center" style="width: 20%;font-size: 80%;">
                       {{item.riskProfile}}
                     </div>
                   </div>
@@ -214,32 +225,32 @@
       </div>
       <div class="col-4 mt-5 pr-2">
 
-        <div  class="col-12 px-3">
-          <div class="p-card">
-          <div class="p-card-body box-style mt-3">
-           <h5 style="color: #001845; text-align: center; font-weight: 700;">OverallGrowth : 
-             <span style="font-weight: 500;"> {{selectedFund.overallGrowth}}%</span></h5>
+        <div class="d-flex flex-column">
+          <div class="col-12 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <p style=" font-size: 80%; text-align: center; font-weight: 700; color: rgb(69, 67, 67);"> Aum : 
+                <span style="font-weight: 700;color: #001845;"> {{selectedFund.aum}}</span></p>
+            </div>
+            </div>       
           </div>
-          </div>       
-      </div>
-
-      <div  class="col-12 px-3">
-        <div class="p-card">
-        <div class="p-card-body box-style mt-3">
-          <h5 style="color: #001845; text-align: center; font-weight: 700;">AUM : 
-            <span style="font-weight: 500;"> {{selectedFund.aum}}</span></h5>
+          <div class="col-12 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <p  style=" font-size: 80% ;text-align: center; font-weight: 700; color: rgb(69, 67, 67);"> Overrall Growth : 
+                <span style="font-weight: 700;color: #001845;"> {{selectedFund.overallGrowth}}%</span></p>
+            </div>
+            </div>       
+          </div>
+          <div class="col-12 px-3">
+            <div class="p-card">
+            <div class="p-card-body box-style mt-3">
+              <p  style=" font-size: 80% ;text-align: center; font-weight: 700; color: rgb(69, 67, 67);"> Launch Date : 
+                <span style="font-weight: 700;color: #001845;">  {{selectedFund.launchDate}}</span></p>
+            </div>
+            </div>       
+          </div>
         </div>
-        </div>       
-    </div>
-
-    <div  class="col-12 px-3">
-      <div class="p-card">
-      <div class="p-card-body box-style mt-3">
-        <h5 style="color: #001845; text-align: center; font-weight: 700;">LaunchDate : 
-          <span style="font-weight: 500;"> {{selectedFund.launchDate}}</span></h5>
-      </div>
-      </div>       
-  </div>
 
 
       </div>
@@ -250,23 +261,25 @@
         <div class="row">
           <div class="col-4 mt-5 pr-2">
 
-            <div  class="col-12 px-3">
-              <div class="p-card">
-              <div class="p-card-body box-style mt-3">
-               <h5 style="color: #001845; text-align: center; font-weight: 700;">Risk Profile : 
-                 <span style="font-weight: 500;"> {{selectedFund.riskProfile}}%</span></h5>
+            <div class="d-flex flex-column">
+              <div class="col-12 px-3">
+                <div class="p-card">
+                <div class="p-card-body box-style mt-3">
+                  <p style=" font-size: 80%; text-align: center; font-weight: 700; color: rgb(69, 67, 67);"> Risk Profile : 
+                    <span style="font-weight: 700;color: #001845;"> {{selectedFund.riskProfile}}%</span></p>
+                </div>
+                </div>       
               </div>
-              </div>       
-          </div>
-    
-          <div  class="col-12 px-3">
-            <div class="p-card">
-            <div class="p-card-body box-style mt-3">
-              <h5 style="color: #001845; text-align: center; font-weight: 700;">Fund Type : 
-                <span style="font-weight: 500;"> {{selectedFund.fundType}}</span></h5>
+              <div class="col-12 px-3">
+                <div class="p-card">
+                <div class="p-card-body box-style mt-3">
+                  <p  style=" font-size: 80% ;text-align: center; font-weight: 700; color: rgb(69, 67, 67);"> Fund Type : 
+                    <span style="font-weight: 700;color: #001845;"> {{selectedFund.fundType}}</span></p>
+                </div>
+                </div>       
+              </div>
             </div>
-            </div>       
-        </div>
+    
     
           </div>
       <div class="col-8 mt-4 ">
